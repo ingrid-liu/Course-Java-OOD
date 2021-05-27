@@ -1,0 +1,50 @@
+CS5005 - Summer 2021 - SF and SV
+Lab2. 2021_0520
+
+1. Watch this video about using Junit with IntelliJ:
+       https://www.youtube.com/watch?v=Bld3644bIAo
+
+   Follow along with his Pet Rock example, step by step.
+   Your lab2 folder should include PetRock.java in the src folder
+   and PetRockTest in the "test" folder (the video calls it "tests")
+   (Notice how the Project Folder Structure feature helps do this.)
+
+2. Watch this video, extending JUnit testing to Exceptions and @Ignore
+       https://www.youtube.com/watch?v=xHk9yGZ1z3k
+
+   Add a test for IllegalStateException for when unhappy.  Add 1 other test
+   involving exceptions; It will likely be necessary to change the Pet Rock to
+   throw an example exception to complete this step.  It is not necessary to
+   understand or implement his @Ignore examples.
+
+3. Read this guide to JUnit4 assertions with examples:
+   https://www.javaguides.net/2018/07/junit-4-assertions-with-examples1.html
+
+   Add to the Pet Rock an example of a test not covered in the first 2 parts of
+   the lab. For example, compare assertSame to assertEquals using doubles. (You
+   may choose a different example if you wish.) You will need to add an extra
+   property to your PetRock class (such as its mass in grams) in order to have
+   some method, such as a getter, to test.
+
+4. A minimal set of methods for a Java class in CS5004-5005 (beyond
+   "Hello World!") would be:
+   a. Constructor (at least one) for instances of the class
+   b. Getter for at least one private property
+   c. toString method to enable System.out.println to print it nicely.
+
+   Add a toString method to the Pet Rock and JUnit testing for it. Note that
+   some private properties (such as a social security number) might be excluded
+   from the toString printout for security reasons.
+
+Add lab2 to your github repo (using either IntelliJ commands, or git commands
+from bash or zsh if you prefer).  Commit and push the files you have created
+and modified for lab2. Submit the URL for your repository's lab2 folder to your
+CS5005 Canvas section as a text comment.
+
+
+Q: Do we need to worry about @Test now?
+A: We do!
+
+Q:
+A:
+

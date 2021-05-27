@@ -1,0 +1,72 @@
+CS5005 - Summer 2021 - SF and SV
+Lab1. 2021_0513
+
+1. Create a file, survey.txt, with these contents:
+   Your full name
+   Any preferred nickname
+   Your Canvas section51958
+   Your physical location (eg SF Bay Area)
+   Three things you value (eg financial success? helping others? etc)
+   One life goal that Align program may help achieve
+   Your computer make and model
+   Your computer OS incuding version
+   How much RAM
+   How much disk space (used and available)
+
+2. Create a folder structure, NOT on your desktop, such as this:
+   Documents/cs5004/labs/lab1/etc for your work. Make a new folder for
+   each lab. A similar approach is suggested for homeworks, etc.
+
+3. Ensure that IntelliJ CE (v14.0.1 ideally) is installed and working
+   https://www.jetbrains.com/idea/download/
+   https://www.informit.com/articles/article.aspx?p=2931579&seqNum=4
+   For now, do not get distracted by the plethora of advanced features!
+   Learn basic usage including folder structure (src, out, idea, .iml)
+   java -version will tell you what version you are running.
+
+4. START learning bash or zsh (== command line == Terminal == shell).
+   Mac: Find it within Applications/Utilities. Drag to the DOCK.
+   Win: At least install PowerShell. Consider full bash.
+   I will post some handouts on Piazza. You should know cd, ls, and pwd.
+   Also, jshell. (/help and /exit are a good place to start)
+
+5. Review basic differences between Python and Java. Create with IntelliJ:
+   a. Hello, World! running in IntelliJ
+   b. Get two ints from user and print the sum
+   c. Use loop to raise integer to a positive integer power             //^2, ^3, ^4
+Please do these on your own, do not look them up on Internet!
+It is OK to collaborate within your breakout group on this.
+
+Here is a quick and dirty summary of how to get user input:
+    import java.util.Scanner;                               // todo learn Scanner
+    Scanner sc = new Scanner(System.in);
+	int myInteger = sc.nextInt();
+	String myLine = sc.nextLine();
+        sc.close()
+
+6. Get started with GitHub
+   https://guides.github.com/activities/hello-world/
+   https://www.youtube.com/watch?v=0fKg7e37bQE
+
+    Install git app for windows or mac (if you don't already have it)
+    https://git-scm.com/download/win or
+    https://sourceforge.net/projects/git-osx-installer/
+
+    Learn 7 git commands (be sure you are IN THE RIGHT DIRECTORY first)
+      git status
+      git clone URL (creates folder with the name of the repository at your current location)
+      git add FILENAME (or git add -A)
+      git push                                              // pull
+      git commit -m "change note"
+        Tip: if you forget the "-m" and land in vi by mistake, quit with <ESC>:wq
+      git pull
+      git (provides detailed docs)
+
+    Link IntelliJ to Github with Ishita's help.             //worth to learn git & link github with intelliJ
+
+Commit your survey and your 3 Java mini-programs in a folder called lab1 with a
+github repository called labs.                              //labs /lab1/lab2...
+
+Submit the URL for your repository to Canvas as a text comment In case you are
+struggling with Github, just upload files directly to Canvas for now. However,
+please get help as needed until you get it working.
