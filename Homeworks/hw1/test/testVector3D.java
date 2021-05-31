@@ -2,12 +2,35 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class testVector3D {
-    Vector3D original = new Vector3D(2.3, 3.5, 4.4);
-    Vector3D other = new Vector3D(6.67, 3.45, 9.23);
-    Vector3D zeroVector = new Vector3D(0, 0, 0);
+    private Vector3D original;
+    private Vector3D other;
+    private Vector3D zeroVector;
+
+    @Before
+    public void myTestSetUp() throws Exception {
+        original = new Vector3D(2.3, 3.5, 4.4);;
+        other = new Vector3D(6.67, 3.45, 9.23);
+        zeroVector = new Vector3D(0, 0, 0);
+    }
 
     @Test
-    public void testSetterGetter(){
+    public void testConstructorWithNonPara() throws Exception {
+        Vector3D vector1 = new Vector3D();
+        assertEquals(0.0, vector1.getX(),.000000001);
+        assertEquals(0.0, vector1.getY(),.000000001);
+        assertEquals(0.0, vector1.getZ(),.000000001);
+    }
+
+    @Test
+    public void testConstructorWithPara() throws Exception {
+        Vector3D vector2 = new Vector3D(2.3, 3.5, 4.4);
+        assertEquals(2.3, vector2.getX(),.000000001);
+        assertEquals(3.5, vector2.getY(),.000000001);
+        assertEquals(4.4, vector2.getZ(),.000000001);
+    }
+
+    @Test
+    public void testSetterGetter() throws Exception {
         Vector3D test = new Vector3D();
         test.setX(5.5);
         assertEquals(5.5, test.getX(),.000000001);
@@ -16,7 +39,6 @@ public class testVector3D {
         test.setZ(7.7);
         assertEquals(7.7, test.getZ(),.000000001);
     }
-
 
     @Test
     public void testToString() throws Exception {
@@ -68,7 +90,6 @@ public class testVector3D {
     public void setOriginalFailAngle() throws Exception {
         zeroVector.angleBetween(other);
     }
-
 }
 
 

@@ -80,11 +80,18 @@ public class Vector3D {
         double cos = this.dotProduct(other) / (this.getMagnitude() * other.getMagnitude());
         double acos = Math.acos(cos);
         return Math.toDegrees(acos);
-
     }
 
     public static void main(String[] args){
         System.out.println("Test main function runs.");
+        Vector3D original = new Vector3D(2.3, 3.5, 4.4);
+        System.out.println(original.x);
+        System.out.println(original.getX());
+
+        Vector3D test = new Vector3D();
+        System.out.println(test);
+
+
     }
 }
 

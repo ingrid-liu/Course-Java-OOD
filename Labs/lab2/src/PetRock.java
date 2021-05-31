@@ -77,12 +77,11 @@ public class PetRock {
     }
 
     // Q4 Add a toString method in PetRock and JUnit
-
     public String toString() {
         return "We pickup a new PetRock!!" +
-                "\nIts name: " + name +
-                "\nIts happy condition: " + happy +
-                "\nIts vaccinated condition: " + vaccinated + "\n";
+                "\nIts name: " + this.name +
+                "\nIts happy condition: " + this.happy +
+                "\nIts vaccinated condition: " + this.vaccinated + "\n";
     }
 
     public static void main(String[] args) {
