@@ -90,8 +90,6 @@ public class Vector3D {
 
         Vector3D test = new Vector3D();
         System.out.println(test);
-
-
     }
 }
 

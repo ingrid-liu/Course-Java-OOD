@@ -14,7 +14,7 @@ public class testVector3D {
     }
 
     @Test
-    public void testConstructorWithNonPara() throws Exception {
+    public void testConstructorWithNoPara() throws Exception {
         Vector3D vector1 = new Vector3D();
         assertEquals(0.0, vector1.getX(),.000000001);
         assertEquals(0.0, vector1.getY(),.000000001);
