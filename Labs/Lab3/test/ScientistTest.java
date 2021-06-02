@@ -53,6 +53,11 @@ public class ScientistTest {
     }
 
     @Test
+    public void failSetSpecialtyExceptionDeliberately() throws Exception {
+        scientist1.setSpecialty("");
+    }
+
+    @Test
     public void testToString() throws Exception {
         assertEquals("This is a Scientist. Name: Einstein; Age: 66; Specialty: Physics",
                 scientist2.toString());

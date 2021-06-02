@@ -29,3 +29,4 @@ public class Scientist extends Person{
         return this.specialty;
     }
 }
+//Also, deliberately include one test that fails, suitably commented.

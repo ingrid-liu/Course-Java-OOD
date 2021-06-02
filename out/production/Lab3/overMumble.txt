@@ -1,0 +1,13 @@
+Difference between Overloading and Overriding in Java:
+
+
+1. Overloading is in the same class;
+   Overriding is in a Class's child class, which is an implementation to the method inherited from its parent class;
+2. From above, we know that Overloading happens at compile-time while Overriding happens at runtime;
+3. Argument list is different while doing method Overloading;
+   Argument list is the same in method Overriding.
+
+Overloading in this lab3 case is providing us a way to achieve a default parameter value by setting two constructors,
+one receives a given value to a specific argument while another one doesn't need to pass a value to it but already set
+a value to that argument.
+

@@ -50,8 +50,7 @@ public class CSuiteManager extends Person {
         if (increaseOption < 0 ){
             throw new IllegalArgumentException("Stock option increment can not be negative.");
         }
-        this.stockOptions = this.stockOptions + increaseOption;
-        return this.stockOptions;
+        return this.stockOptions += increaseOption;
     }
 
     public double capitalGain(double marketPrice){
