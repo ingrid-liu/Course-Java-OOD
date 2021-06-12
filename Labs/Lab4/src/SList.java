@@ -7,6 +7,7 @@ public interface SList {
     String get(int index); // index is from 0 to n-1
     boolean isEmpty();
     String remove(int index); // index is from 0 to n-1
+    SNode removeStr(String str); // Not required; only for test. Plz ignore this part.
     int size();
     // SList oddWords(SList sentence); // original, incorrect signature
     // The following may return a new list or modify the original, either is OK

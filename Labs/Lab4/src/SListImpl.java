@@ -78,57 +78,102 @@ public class SListImpl implements SList {
 
     @Override
     public SList oddWords() {
+        if(head==null){
+            throw new IllegalArgumentException("The list is empty, so there's no oddWords");
+        }
         SNode currentPtr = head.next;
-        if(currentPtr == null){
-            return null;
-        }
-
         SListImpl oddList = new SListImpl();
-        if (size() < 2) {
-            oddList.add(currentPtr.word);
-            return oddList;
-        }
 
-        oddList.add(currentPtr.word);
-        while (currentPtr.next.next != null ) {
-            currentPtr = currentPtr.next.next;
+        while (currentPtr != null ) {
             oddList.add(currentPtr.word);
+            if (currentPtr.next != null && currentPtr.next.next != null) {
+                currentPtr = currentPtr.next.next;
+            }else {
+                break;
+            }
         }
-
         return oddList;
     }
 
+
+    // todo try solve it with Hashtable
     @Override
     public SList evenWords() {
+        if(head==null){
+            throw new IllegalArgumentException("The list is empty, so there's no evenWords");
+        }
         SNode currentPtr = head;
-        if(currentPtr == null){
-            return null;
-        }
-
         SListImpl evenList = new SListImpl();
-        if (size() < 2) {
-            evenList.add(currentPtr.word);
-            return evenList;
-        }
 
-        evenList.add(currentPtr.word);
-        while (currentPtr.next.next != null ) {
-            currentPtr = currentPtr.next.next;
+        while (currentPtr != null ) {
             evenList.add(currentPtr.word);
+            if (currentPtr.next != null && currentPtr.next.next != null) {
+                currentPtr = currentPtr.next.next;
+            }else {
+                break;
+            }
         }
         return evenList;
     }
 
+
+    @Override
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         SNode currentPtr = head;
 
         while (currentPtr != null) {
-            res = res + currentPtr.toString();
+            res.append(currentPtr);
             currentPtr = currentPtr.next;
         }
 
-        return res;
+        return res.toString();
+    }
+
+    /**
+     * removeStr: only for test, please ignore this method
+     * @param: word
+     * @return SNode
+     */
+    @Override
+    public SNode removeStr(String word) {
+        SNode dummy = new SNode("\0", null);
+        SNode newListPtr = dummy;
+        SNode currentPtr = head;
+
+//// Attempt1 (Prof's way:) doesn't work for the last node
+//        while(currentPtr != null) {
+//            if (currentPtr.word.equals(word)) {
+//                System.out.println("MEET TARGET: " + currentPtr.word);
+//            }else {
+//                newListPtr.next = currentPtr;
+//                newListPtr = newListPtr.next;
+//                System.out.println("Here2: " + newListPtr.word);
+//            }
+//            currentPtr = currentPtr.next;
+//            System.out.println("Here3: " + currentPtr.word);
+//        }
+//        System.out.println("Here5: " + newListPtr.word);
+//        return dummy.next;
+
+// Attempt2 (Updated:) Q: is it necessary to check whether currentPtr==null
+// inside of the while loop?
+
+        while (currentPtr != null){
+            if (currentPtr.word.equals(word)) {     //currentPtr.word == word
+                currentPtr = currentPtr.next;
+            }
+            if (currentPtr == null) {
+                newListPtr.next = null;
+            }else {
+                newListPtr.next = currentPtr;
+                newListPtr = newListPtr.next;
+                currentPtr = currentPtr.next;
+            }
+        }
+        return dummy.next;
+
+
     }
 }
 
