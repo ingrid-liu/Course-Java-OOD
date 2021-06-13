@@ -1,12 +1,18 @@
 import java.util.NoSuchElementException;
 
 public class Rectangle {
-    //todo change the datatype into int
-    private int x;       // horizontal
-    private int y;       // vertical
-    private int w;       // width
-    private int h;       // height
+    private int x;
+    private int y;
+    private int w;
+    private int h;
 
+    /**
+     * constructor of the rectangle
+     * @param x: vertical coordinate
+     * @param y: vertical coordinate
+     * @param w: width of the rectangle
+     * @param h: height of the rectangle
+     */
     public Rectangle(int x, int y, int w, int h) {
         if (w < 0 || h < 0) {
             throw new IllegalArgumentException("The width or height can't be negative");
@@ -17,6 +23,11 @@ public class Rectangle {
         this.h = h;
     }
 
+    /**
+     * Overlap: check if two rectangles are overlapped with each other
+     * @param other: Rectangle
+     * @return: true if overlapped, false otherwise
+     */
     public Boolean overlap(Rectangle other) {
         boolean overlaps = true;
         if (this.x >= other.x && this.x >= (other.x+other.w)) {
@@ -34,6 +45,11 @@ public class Rectangle {
         return overlaps;
     }
 
+    /**
+     * intersect: calculate the intersect of two rectangles
+     * @param other: Rectangle
+     * @return: the overlapped part as a new Rectangle
+     */
     public Rectangle intersect(Rectangle other) {
         Rectangle intersectRec = new Rectangle(0,0,0,0);
         boolean overlaps = this.overlap(other);
@@ -72,6 +88,11 @@ public class Rectangle {
         return intersectRec;
     }
 
+    /**
+     * union: the smallest rectangle that contains both rectangles
+     * @param other: a Rectangle
+     * @return: a Rectangle: the union of this rectangle and other rectangle
+     */
     public Rectangle union(Rectangle other) {
         Rectangle unionRec = new Rectangle(0,0,0,0);
         unionRec.x = Math.min(this.x, other.x);
@@ -83,12 +104,19 @@ public class Rectangle {
         unionRec.h = unionRecEndY - unionRec.y;
         return unionRec;
     }
-    // todo check if I can set setter/getter as public method??
+
+    /**
+     * toString
+     * @return: string (expression of the Rectangle object)
+     */
     public String toString() {
         return "x:" + this.x +
                 ", y:" + this.y + ", w:" + this.w + ", h:" + this.h;
     }
 
+    /**
+     * getter/setter of the attributes of the class Rectangle
+     */
     public int getX() {
         return x;
     }
