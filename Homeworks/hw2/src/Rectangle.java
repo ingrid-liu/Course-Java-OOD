@@ -1,5 +1,15 @@
 import java.util.NoSuchElementException;
 
+/**
+ * Return a Rectangle object that defined by its coordinates(x,y) and
+ * width & height (w,h)
+ * @author: 'Ingrid' Xiaoying Liu
+ * @param: integer x
+ * @param: integer y
+ * @param: integer w
+ * @param: integer h
+ * @return: a Rectangle object
+ */
 public class Rectangle {
     private int x;
     private int y;

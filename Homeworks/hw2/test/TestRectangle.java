@@ -2,6 +2,10 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+/**
+ * @author: 'Ingrid' Xiaoying Liu
+ * Junit test for class Rectangle
+ */
 public class TestRectangle {
     private Rectangle rectangleOriginal;
     private Rectangle rectangleN;
