@@ -1,5 +1,7 @@
 import jdk.swing.interop.SwingInterOpUtils;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
+
 import static org.junit.Assert.*;
 
 /*
@@ -184,8 +186,14 @@ public class TestRectangle {
 
         innerRectangle = new Rectangle(-1,-1,2,2);
         outerRectangle = new Rectangle(-4,-4,10,10);
-
     }
+
+    /**
+     * The ExpectedException allows to verify the code throws a
+     * specific exception.
+     */
+    @Rule
+    public ExpectedException thrown= ExpectedException.none();
 
     /**
      * The testNEWSOverlap is testing the overlapped rectangles
@@ -406,7 +414,7 @@ public class TestRectangle {
      * The testCompletelyOverlap is testing on completely duplicated rectangles.
      */
     @Test
-    public void testCompletelyOverlap() {
+    public void testCompletelyOverlap() throws Exception {
         Rectangle sameWithOriginal = new Rectangle(-2,-2,4,4);
         Rectangle expectedResult = new Rectangle(-2, -2, 4, 4);
 
