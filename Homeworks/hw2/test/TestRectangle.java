@@ -2,56 +2,151 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+/*
+ * Junit test for class Rectangle.
+ * @author  'Ingrid' Xiaoying Liu
+ * @version 1.0
+ * @since   2021-06-01
+ */
+
 /**
- * @author: 'Ingrid' Xiaoying Liu
- * Junit test for class Rectangle
+ * Test Rectangle Class
  */
 public class TestRectangle {
+    /**
+     * Create a Rectangle object named rectangleOriginal
+     */
     private Rectangle rectangleOriginal;
+    /**
+     * Create a Rectangle object named rectangleN
+     */
     private Rectangle rectangleN;
+    /**
+     * Create a Rectangle object named rectangleS
+     */
     private Rectangle rectangleS;
+    /**
+     * Create a Rectangle object named rectangleE
+     */
     private Rectangle rectangleE;
+    /**
+     * Create a Rectangle object named rectangleW
+     */
     private Rectangle rectangleW;
+    /**
+     * Create a Rectangle object named rectangleNE
+     */
     private Rectangle rectangleNE;
+    /**
+     * Create a Rectangle object named rectangleNW
+     */
     private Rectangle rectangleNW;
+    /**
+     * Create a Rectangle object named rectangleSE
+     */
     private Rectangle rectangleSE;
+    /**
+     * Create a Rectangle object named rectangleSW
+     */
     private Rectangle rectangleSW;
 
+    /**
+     * Create a Rectangle object named parallelPassThrough
+     */
     private Rectangle parallelPassThrough;
+    /**
+     * Create a Rectangle object named verticalPassThrough
+     */
     private Rectangle verticalPassThrough;
+    /**
+     * Create a Rectangle object named almostCover1
+     */
     private Rectangle almostCover1;
+    /**
+     * Create a Rectangle object named almostCover2
+     */
     private Rectangle almostCover2;
 
+    /**
+     * Create a Rectangle object named unOverlappedN
+     */
     private Rectangle unOverlappedN;
+    /**
+     * Create a Rectangle object named unOverlappedS
+     */
     private Rectangle unOverlappedS;
+    /**
+     * Create a Rectangle object named unOverlappedW
+     */
     private Rectangle unOverlappedW;
+    /**
+     * Create a Rectangle object named unOverlappedE
+     */
     private Rectangle unOverlappedE;
+    /**
+     * Create a Rectangle object named unOverlappedNW
+     */
     private Rectangle unOverlappedNW;
+    /**
+     * Create a Rectangle object named unOverlappedNE
+     */
     private Rectangle unOverlappedNE;
+    /**
+     * Create a Rectangle object named unOverlappedSW
+     */
     private Rectangle unOverlappedSW;
+    /**
+     * Create a Rectangle object named unOverlappedSE
+     */
     private Rectangle unOverlappedSE;
-
-    private Rectangle touch1edge;
-    private Rectangle touch2edge;
-    private Rectangle touch3edge;
-
-    private Rectangle touchNodeNE;
-    private Rectangle touchNodeNW;
-    private Rectangle touchNodeSE;
-    private Rectangle touchNodeSW;
-
-    private Rectangle innerRectangle;
-    private Rectangle outerRectangle;
-
 
 
     /**
-     * myTestSetUp()
+     * Create a Rectangle object named touch1edge
+     */
+    private Rectangle touch1edge;
+    /**
+     * Create a Rectangle object named touch2edge
+     */
+    private Rectangle touch2edge;
+    /**
+     * Create a Rectangle object named touch3edge
+     */
+    private Rectangle touch3edge;
+
+    /**
+     * Create a Rectangle object named touchNodeNE
+     */
+    private Rectangle touchNodeNE;
+    /**
+     * Create a Rectangle object named touchNodeNW
+     */
+    private Rectangle touchNodeNW;
+    /**
+     * Create a Rectangle object named touchNodeSE
+     */
+    private Rectangle touchNodeSE;
+    /**
+     * Create a Rectangle object named touchNodeSW
+     */
+    private Rectangle touchNodeSW;
+
+    /**
+     * Create a Rectangle object named outerRectangle
+     */
+    private Rectangle innerRectangle;
+    /**
+     * Create a Rectangle object named outerRectangle
+     */
+    private Rectangle outerRectangle;
+
+    /**
+     * The myTestSetUp() is setting up the value of the rectangles I create.
      * :rectangleOriginal: original rectangle across both positive and negative coordinates
      * :rectangle_ N, S, W, E, NW, NE, SE, SW: partially overlapped with the rectangleOriginal
      */
     @Before
-    public void myTestSetUp() throws Exception {
+    public void myTestSetUp() {
         rectangleOriginal = new Rectangle(-2,-2,4,4);
         rectangleN = new Rectangle(0,1,1,2);
         rectangleS = new Rectangle(-1,-3,1,2);
@@ -86,17 +181,18 @@ public class TestRectangle {
 
         touchNodeSE = new Rectangle(2,-4,2,2);
         touchNodeSW = new Rectangle(-4,-4,2,2);
-//
+
         innerRectangle = new Rectangle(-1,-1,2,2);
         outerRectangle = new Rectangle(-4,-4,10,10);
 
     }
 
     /**
-     * testNEWSOverlap: test overlapped rectangles with the rectangleOriginal from N, S, E, W directions
+     * The testNEWSOverlap is testing the overlapped rectangles
+     * with the rectangleOriginal from N, S, E, W directions.
      */
     @Test
-    public void testNEWSOverlap() throws Exception {
+    public void testNEWSOverlap() {
         assertTrue(rectangleOriginal.overlap(rectangleN));
         assertTrue(rectangleOriginal.overlap(rectangleS));
         assertTrue(rectangleOriginal.overlap(rectangleE));
@@ -104,10 +200,11 @@ public class TestRectangle {
     }
 
     /**
-     * test the partially overlapped rectangles from four corner directions
+     * The testCornerOverlap is testing the partially overlapped
+     * rectangles from four corner directions.
      */
     @Test
-    public void testCornerOverlap() throws Exception {
+    public void testCornerOverlap() {
         assertTrue(rectangleOriginal.overlap(rectangleNW));
         assertTrue(rectangleOriginal.overlap(rectangleNE));
         assertTrue(rectangleOriginal.overlap(rectangleSE));
@@ -115,11 +212,12 @@ public class TestRectangle {
     }
 
     /**
-     * test the intersection results of the above overlapped cases (N/S/E/W + four corners)
-     * test on getter/setter at the same time
+     * The testPartiallyOverlappedIntersect is testing the intersection
+     * results of the above overlapped cases (N/S/E/W + four corners).
+     * also tested on getter/setter at the same time
      */
     @Test
-    public void testPartiallyOverlappedIntersect() throws Exception {
+    public void testPartiallyOverlappedIntersect() {
         Rectangle expectedResultN = new Rectangle(0,1,1,1);
         Rectangle IntersectN = rectangleOriginal.intersect(rectangleN);
         assertEquals(expectedResultN.getX(), IntersectN.getX());
@@ -179,11 +277,12 @@ public class TestRectangle {
     }
 
     /**
-     * test several other partially overlapped cases, i.e. pass through the original rectangle
-    or almost contained the original rectangle
+     * The testOtherPartiallyOverlapAndIntersect is testing several other
+     * partially overlapped cases, i.e. pass through the original rectangle
+     * or almost contained the original rectangle.
      */
     @Test
-    public void testOtherPartiallyOverlapAndIntersect() throws Exception {
+    public void testOtherPartiallyOverlapAndIntersect() {
         assertTrue(rectangleOriginal.overlap(parallelPassThrough));
         assertTrue(rectangleOriginal.overlap(verticalPassThrough));
         assertTrue(rectangleOriginal.overlap(almostCover1));
@@ -219,10 +318,11 @@ public class TestRectangle {
     }
 
     /**
-     * test rectangles from all directions without overlapping with the original rectangle
+     * The testUnOverlapped is testing rectangles from all directions
+     * without overlapping with the original rectangle.
      */
     @Test
-    public void testUnOverlapped() throws Exception {
+    public void testUnOverlapped() {
         assertFalse(rectangleOriginal.overlap(unOverlappedN));
         assertFalse(rectangleOriginal.overlap(unOverlappedS));
         assertFalse(rectangleOriginal.overlap(unOverlappedW));
@@ -234,11 +334,11 @@ public class TestRectangle {
     }
 
     /**
-     * test union result on above all cases
+     * The testUnion is testing union result on above all cases.
      * test on toString at the same time
      */
     @Test
-    public void testUnion() throws Exception {
+    public void testUnion() {
         Rectangle expectedResultN = new Rectangle(-2,-2,4,5);
         Rectangle expectedResultS = new Rectangle(-2,-3,4,5);
         Rectangle expectedResultE = new Rectangle(-2,-2,10,4);
@@ -272,10 +372,11 @@ public class TestRectangle {
     }
 
     /**
-     * test rectangles touched 1/2/3 edge(s) of the original rectangle
+     * The testTouched is testing rectangles touched 1/2/3 edge(s)
+     * of the original rectangle.
      */
     @Test
-    public void testTouched() throws Exception {
+    public void testTouched() {
         // 1 touched edge
         assertFalse(rectangleOriginal.overlap(touch1edge));
         assertEquals("x:-4, y:-2, w:6, h:4", rectangleOriginal.union(touch1edge).toString());
@@ -291,22 +392,28 @@ public class TestRectangle {
         assertEquals("x:-2, y:-2, w:6, h:6", rectangleOriginal.union(touch3edge).toString());
     }
 
+    /**
+     * The testTouchedException is testing on throwing an expected
+     * exception by the intersect method.
+     * @throws Exception NoSuchElementException
+     */
     @Test (expected = Exception.class)
     public void testTouchedException() throws Exception {
         rectangleOriginal.intersect(touch1edge);
     }
 
     /**
-     * test completely duplicated rectangles
+     * The testCompletelyOverlap is testing on completely duplicated rectangles.
      */
     @Test
-    public void testCompletelyOverlap() throws Exception {
+    public void testCompletelyOverlap() {
         Rectangle sameWithOriginal = new Rectangle(-2,-2,4,4);
         Rectangle expectedResult = new Rectangle(-2, -2, 4, 4);
 
         assertTrue(rectangleOriginal.overlap(sameWithOriginal));
 
-        assertEquals("x:-2, y:-2, w:4, h:4", rectangleOriginal.union(sameWithOriginal).toString());
+        assertEquals("x:-2, y:-2, w:4, h:4",
+                rectangleOriginal.union(sameWithOriginal).toString());
         assertEquals(expectedResult.getX(), rectangleOriginal.getX());
         assertEquals(expectedResult.getY(), rectangleOriginal.getY());
         assertEquals(expectedResult.getW(), sameWithOriginal.getW());
@@ -314,10 +421,11 @@ public class TestRectangle {
     }
 
     /**
-     * test rectangles touched 4 corner-edges of the original rectangle + throws Exception
+     * The testTouchedCornerNode is testing rectangles touched 4 corner-edges
+     * of the original rectangle + throws Exception.
      */
     @Test
-    public void testTouchedCornerNode() throws Exception {
+    public void testTouchedCornerNode() {
         assertFalse(rectangleOriginal.overlap(touchNodeNE));
         assertEquals("x:-2, y:-2, w:6, h:6", rectangleOriginal.union(touchNodeNE).toString());
 
@@ -340,10 +448,11 @@ public class TestRectangle {
     }
 
     /**
-     * test rectangles contain and be contained by the original rectangle
+     * The testInNOut is testing on rectangles contain
+     * and be contained by the original rectangle.
      */
     @Test
-    public void testInNOut() throws Exception {
+    public void testInNOut() {
         assertTrue(rectangleOriginal.overlap(innerRectangle));
         assertEquals(innerRectangle.toString(), rectangleOriginal.intersect(innerRectangle).toString());
         assertEquals(rectangleOriginal.toString(), rectangleOriginal.union(innerRectangle).toString());
@@ -354,7 +463,10 @@ public class TestRectangle {
     }
 
 
-// Already tested Setter/Getter & toString in above tests for your information:)
+/*
+ Already tested Setter/Getter & toString in above tests
+ for your information:)
+ */
 
 
 }
