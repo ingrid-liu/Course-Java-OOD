@@ -1,21 +1,15 @@
-public interface TList {
-    /*
-    TList objectName = new TListImpl();
-    Return typeTList;
-     */
-    boolean add(String val); // Add val to end of list. Any String is OK
-    String get(int index); // index is from 0 to n-1
+public interface TList<T> {
+    boolean add(T val); // Add val to end of list. Any T (type) is OK
+    T get(int index); // index is from 0 to n-1
     boolean isEmpty();
-    String remove(int index); // index is from 0 to n-1
-    // TNode removeStr(String str); // Not required; only for test. Plz ignore this part.
+    T remove(int index); // index is from 0 to n-1
     int size();
-    // TList oddWords(TList sentence); // original, incorrect signature
+    // SList oddTs(TList); // original, incorrect signature
     // The following may return a new list or modify the original, either is OK
     // position 0 is even, position 1 is odd, etc.
-    TList oddWords(); // Returns list of odd numbered words only
-
-    // TList evenWords(TList sentence); // original, incorrect signature
+    TList<T> oddTs(); // Returns list of odd numbered Ts only
+    // TList evenTs(TList); // original, incorrect signature
     // The following may return a new list or modify the original, either is OK
     // position 0 is even, position 1 is odd, etc.
-    TList evenWords(); // Returns list of even numbered words only
+    TList<T> evenTs(); // Returns list of even numbered Ts only
 }

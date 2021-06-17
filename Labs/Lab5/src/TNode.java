@@ -1,19 +1,30 @@
+public class TNode<T> {
+    public T val;
+    public TNode<T> next;
 
-public class TNode {
-    public String word;
-    public SNode next;
-
-    public SNode(String word) {
-        this.word = word;
+    public TNode<T>() {
+        this.val = null;            // todo
+        this.next = null;
+    }
+    public TNode<T>(T val) {
+        this.val = val;
         this.next = null;
     }
 
-    public SNode(String word, SNode next) {
-        this.word = word;
+    public TNode<T>(T val, TNode<T> next) {
+        this.val = val;
         this.next = next;
     }
 
-    public String toString() {
-        return this.word + " ";
+    public String toString(){
+        return this.val + " ";
+    }
+
+//    public T getVal() {
+//        return val;
+//    }
+//
+//    public TNode<T> getNext() {
+//        return next;
     }
 }

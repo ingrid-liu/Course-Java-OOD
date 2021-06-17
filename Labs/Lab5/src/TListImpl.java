@@ -1,41 +1,71 @@
-public class TListImpl implements TList {
-    private SNode head;
+/**
+ * This class is implements a TList that create a list with element in type T.
+ * @author Xiaoying 'Ingrid' Liu
+ * @version 1.0
+ */
 
-    public SListImpl() {
-        this.head = null;
+/**
+ *
+ * @param <T> the type of the parameter
+ */
+public class TListImpl<T> implements TList<T> {
+    private TNode<T> head;
+
+    /**
+     * This constructs a TListImpl with non parameter.
+     */
+    public TListImpl<T>() {
+        this.head = new TNode<T>();
     }
 
-    public SListImpl(SNode n) {
+    /**
+     * This constructs a TListImpl with a specified val and TNode.
+     * @param val xxxxxxxxxxxx
+     * @param n xxxxxxxxxx
+     */
+    public TListImpl(T val, TNode<T> n) {
+        this.val = val;
         this.head = n;
     }
 
+    /**
+     * The add method can take a val and add it to the TListImpl. //todo right?
+     * @param val xxxxxxxxxxxx
+     * @return xxxxxxxxxxxx
+     */
     @Override
-    public boolean add(String word) {
+    public boolean add(T val) {         // todo change T to String or Object it will stop complaining
         if (head == null) {
-            head = new SNode(word, null);
+            head = new TNode<T>(val, null);        // todo I should pass TNode a String val here (also line24:(
             return true;
         }
-        SNode currentPtr = head;
+        TNode<T> currentPtr = head;
         while (currentPtr.next != null) {
             currentPtr = currentPtr.next;
         }
-        currentPtr.next = new SNode(word, null);
+        currentPtr.next = new TNode<T>(val, null);
         return true;
     }
 
+    /**
+     * The get method takes an integer as an index and return the value of that index in the TList.
+     * @param index xxxxxxxxxxxx
+     * @return xxxxxxxxxxxx
+     */
     @Override
-    public String get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
         int pos = 0;
-        SNode currentPtr = head;
+        TNode<T> currentPtr = head;
         while (currentPtr != null && pos != index) {
             pos++;
             currentPtr = currentPtr.next;
         }
         assert currentPtr != null;      // todo Q: hint me to add this. can I do without it?
-        return currentPtr.word;
+        return currentPtr.val;
+        // todo ↑ should I define currentPtr as currentPtr<T>???
     }
 
     @Override
@@ -43,14 +73,19 @@ public class TListImpl implements TList {
         return head == null;
     }
 
+    /**
+     * xxxxxxxxxxxx
+     * @param index xxxxxxxxxxxx
+     * @return xxxxxxxxxxxx
+     */
     @Override
-    public String remove(int index) {
+    public T remove(int index) {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("index should be from 0 to n-1");
         }
         int pos = 0;
-        SNode currentPtr = head;
-        SNode prevPtr = null;
+        TNode<T> currentPtr = head;
+        TNode<T> prevPtr = null;
         while (pos != index) {
             pos++;
             prevPtr = currentPtr;
@@ -58,17 +93,17 @@ public class TListImpl implements TList {
         }
         if (prevPtr == null) {
             head = currentPtr.next;
-            return currentPtr.word;
+            return currentPtr.val;
         }
 
         prevPtr.next = currentPtr.next;
-        return currentPtr.word;
+        return currentPtr.val;
     }
 
     @Override
     public int size() {
         int counter = 0;
-        SNode currentPtr = head;
+        TNode currentPtr = head;
         while (currentPtr != null) {
             counter++;
             currentPtr = currentPtr.next;
@@ -77,15 +112,15 @@ public class TListImpl implements TList {
     }
 
     @Override
-    public SList oddWords() {
+    public TList oddWords() {
         if(head==null){
             throw new IllegalArgumentException("The list is empty, so there's no oddWords");
         }
-        SNode currentPtr = head.next;
-        SListImpl oddList = new SListImpl();
+        TNode<T> currentPtr = head.next;
+        TListImpl<T> oddList = new TListImpl<T>();
 
         while (currentPtr != null ) {
-            oddList.add(currentPtr.word);
+            oddList.add(currentPtr.val);
             if (currentPtr.next != null && currentPtr.next.next != null) {
                 currentPtr = currentPtr.next.next;
             }else {
@@ -98,15 +133,15 @@ public class TListImpl implements TList {
 
     // todo try solve it with Hashtable
     @Override
-    public SList evenWords() {
+    public TList evenWords() {
         if(head==null){
             throw new IllegalArgumentException("The list is empty, so there's no evenWords");
         }
-        SNode currentPtr = head;
-        SListImpl evenList = new SListImpl();
+        TNode<T> currentPtr = head;
+        TListImpl<T> evenList = new TListImpl<T>();
 
         while (currentPtr != null ) {
-            evenList.add(currentPtr.word);
+            evenList.add(currentPtr.val);
             if (currentPtr.next != null && currentPtr.next.next != null) {
                 currentPtr = currentPtr.next.next;
             }else {
@@ -120,7 +155,7 @@ public class TListImpl implements TList {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        SNode currentPtr = head;
+        TNode<T> currentPtr = head;
 
         while (currentPtr != null) {
             res.append(currentPtr);
@@ -129,52 +164,53 @@ public class TListImpl implements TList {
 
         return res.toString();
     }
-
-    /**
-     * removeStr: only for test, please ignore this method
-     * @param: word
-     * @return SNode
-     */
-    @Override
-    public SNode removeStr(String word) {
-        SNode dummy = new SNode("\0", null);
-        SNode newListPtr = dummy;
-        SNode currentPtr = head;
-
-//// Attempt1 (Prof's way:) doesn't work for the last node
-//        while(currentPtr != null) {
-//            if (currentPtr.word.equals(word)) {
-//                System.out.println("MEET TARGET: " + currentPtr.word);
-//            }else {
-//                newListPtr.next = currentPtr;
-//                newListPtr = newListPtr.next;
-//                System.out.println("Here2: " + newListPtr.word);
-//            }
-//            currentPtr = currentPtr.next;
-//            System.out.println("Here3: " + currentPtr.word);
-//        }
-//        System.out.println("Here5: " + newListPtr.word);
-//        return dummy.next;
-
-// Attempt2 (Updated:) Q: is it necessary to check whether currentPtr==null
-// inside of the while loop?
-
-        while (currentPtr != null){
-            if (currentPtr.word.equals(word)) {     //currentPtr.word == word
-                currentPtr = currentPtr.next;
-            }
-            if (currentPtr == null) {
-                newListPtr.next = null;
-            }else {
-                newListPtr.next = currentPtr;
-                newListPtr = newListPtr.next;
-                currentPtr = currentPtr.next;
-            }
-        }
-        return dummy.next;
-
-
-    }
 }
 
 
+
+
+
+
+
+//public class TListImpl<T> implements TList<T>{
+//    private TNode<T> head;
+//
+//    public TListImpl() {             // todo once add <T> it complains:(
+//        this.head = new TNode<T>();
+//    }
+//
+//    @Override
+//    public boolean add(T val) {
+//        return false;
+//    }
+//
+//    @Override
+//    public T get(int index) {
+//        return null;
+//    }
+//
+//    @Override
+//    public boolean isEmpty() {
+//        return false;
+//    }
+//
+//    @Override
+//    public T remove(int index) {
+//        return null;
+//    }
+//
+//    @Override
+//    public int size() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public TList oddTs() {
+//        return null;
+//    }
+//
+//    @Override
+//    public TList evenTs() {
+//        return null;
+//    }
+//}
