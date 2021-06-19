@@ -9,23 +9,22 @@
  * @param <T> the type of the parameter
  */
 public class TListImpl<T> implements TList<T> {
-    private TNode<T> head;
+//    public T val;
+    public TNode<T> head;
 
     /**
      * This constructs a TListImpl with non parameter.
      */
-    public TListImpl<T>() {
-        this.head = new TNode<T>();
+    public TListImpl() {
+        this.head = null;
     }
 
     /**
      * This constructs a TListImpl with a specified val and TNode.
-     * @param val xxxxxxxxxxxx
-     * @param n xxxxxxxxxx
+     * @param newNode xxxxxxxxxx
      */
-    public TListImpl(T val, TNode<T> n) {
-        this.val = val;
-        this.head = n;
+    public TListImpl(TNode<T> newNode) {
+        this.head = newNode;
     }
 
     /**
@@ -34,9 +33,9 @@ public class TListImpl<T> implements TList<T> {
      * @return xxxxxxxxxxxx
      */
     @Override
-    public boolean add(T val) {         // todo change T to String or Object it will stop complaining
+    public boolean add(T val) {
         if (head == null) {
-            head = new TNode<T>(val, null);        // todo I should pass TNode a String val here (also line24:(
+            head = new TNode<>(val, null);
             return true;
         }
         TNode<T> currentPtr = head;
@@ -63,9 +62,8 @@ public class TListImpl<T> implements TList<T> {
             pos++;
             currentPtr = currentPtr.next;
         }
-        assert currentPtr != null;      // todo Q: hint me to add this. can I do without it?
+        assert currentPtr != null;
         return currentPtr.val;
-        // todo ↑ should I define currentPtr as currentPtr<T>???
     }
 
     @Override
@@ -74,7 +72,7 @@ public class TListImpl<T> implements TList<T> {
     }
 
     /**
-     * xxxxxxxxxxxx
+     *  remove
      * @param index xxxxxxxxxxxx
      * @return xxxxxxxxxxxx
      */
@@ -100,6 +98,10 @@ public class TListImpl<T> implements TList<T> {
         return currentPtr.val;
     }
 
+    /**
+     * size
+     * @return
+     */
     @Override
     public int size() {
         int counter = 0;
@@ -111,8 +113,12 @@ public class TListImpl<T> implements TList<T> {
         return counter;
     }
 
+    /**
+     * oddTs
+     * @return
+     */
     @Override
-    public TList oddWords() {
+    public TList oddTs() {
         if(head==null){
             throw new IllegalArgumentException("The list is empty, so there's no oddWords");
         }
@@ -131,9 +137,12 @@ public class TListImpl<T> implements TList<T> {
     }
 
 
-    // todo try solve it with Hashtable
+    /**
+     * evenTs
+     * @return
+     */
     @Override
-    public TList evenWords() {
+    public TList evenTs() {
         if(head==null){
             throw new IllegalArgumentException("The list is empty, so there's no evenWords");
         }
@@ -165,52 +174,3 @@ public class TListImpl<T> implements TList<T> {
         return res.toString();
     }
 }
-
-
-
-
-
-
-
-//public class TListImpl<T> implements TList<T>{
-//    private TNode<T> head;
-//
-//    public TListImpl() {             // todo once add <T> it complains:(
-//        this.head = new TNode<T>();
-//    }
-//
-//    @Override
-//    public boolean add(T val) {
-//        return false;
-//    }
-//
-//    @Override
-//    public T get(int index) {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return false;
-//    }
-//
-//    @Override
-//    public T remove(int index) {
-//        return null;
-//    }
-//
-//    @Override
-//    public int size() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public TList oddTs() {
-//        return null;
-//    }
-//
-//    @Override
-//    public TList evenTs() {
-//        return null;
-//    }
-//}

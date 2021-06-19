@@ -1,30 +1,53 @@
+/**
+ *
+ * @param <T>
+ */
 public class TNode<T> {
     public T val;
     public TNode<T> next;
 
-    public TNode<T>() {
-        this.val = null;            // todo
+    /**
+     *
+     */
+    public TNode() {
+        this.val = null;
         this.next = null;
     }
-    public TNode<T>(T val) {
+
+    /**
+     *
+     */
+    public TNode(T val) {
         this.val = val;
         this.next = null;
     }
 
-    public TNode<T>(T val, TNode<T> next) {
+    /**
+     *
+     */
+    public TNode(T val, TNode next) {
         this.val = val;
         this.next = next;
     }
 
+    /**
+     *
+     */
     public String toString(){
         return this.val + " ";
     }
 
-//    public T getVal() {
-//        return val;
-//    }
-//
-//    public TNode<T> getNext() {
-//        return next;
+    /**
+     *
+     */
+    public T getDatatype() {
+        return this.val;
+    }
+
+    /**
+     *
+     */
+    public TNode<T> getNext() {
+        return this.next;
     }
 }
