@@ -1,3 +1,10 @@
+/**
+ * This interface is a TList that create a list with element in type T.
+ *
+ * @author Xiaoying 'Ingrid' Liu
+ * @version 1.0
+ */
+
 public interface TList<T> {
     boolean add(T val); // Add val to end of list. Any T (type) is OK
     T get(int index); // index is from 0 to n-1

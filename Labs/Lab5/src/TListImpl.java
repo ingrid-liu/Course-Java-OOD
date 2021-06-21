@@ -1,15 +1,15 @@
 /**
- * This class is implements a TList that create a list with element in type T.
+ * This class implements a TList that creates a list with element in type T.
+ *
  * @author Xiaoying 'Ingrid' Liu
  * @version 1.0
  */
 
-/**
- *
- * @param <T> the type of the parameter
- */
 public class TListImpl<T> implements TList<T> {
-//    public T val;
+
+    /**
+     * This defines the 'head' argument of the TList.
+     */
     public TNode<T> head;
 
     /**
@@ -21,16 +21,18 @@ public class TListImpl<T> implements TList<T> {
 
     /**
      * This constructs a TListImpl with a specified val and TNode.
-     * @param newNode xxxxxxxxxx
+     *
+     * @param newNode a TNode in T type
      */
     public TListImpl(TNode<T> newNode) {
         this.head = newNode;
     }
 
     /**
-     * The add method can take a val and add it to the TListImpl. //todo right?
-     * @param val xxxxxxxxxxxx
-     * @return xxxxxxxxxxxx
+     * The add method can take a value in T type and add it to the TListImpl.
+     *
+     * @param val a value of the Node in T type.
+     * @return true if added successful, false otherwise
      */
     @Override
     public boolean add(T val) {
@@ -42,14 +44,16 @@ public class TListImpl<T> implements TList<T> {
         while (currentPtr.next != null) {
             currentPtr = currentPtr.next;
         }
-        currentPtr.next = new TNode<T>(val, null);
+        currentPtr.next = new TNode<>(val, null);
         return true;
     }
 
     /**
-     * The get method takes an integer as an index and return the value of that index in the TList.
-     * @param index xxxxxxxxxxxx
-     * @return xxxxxxxxxxxx
+     * The get method takes an integer as an index and
+     * return the value of that index in the TList.
+     *
+     * @param index index of the TList
+     * @return the Node's value in T type
      */
     @Override
     public T get(int index) {
@@ -66,15 +70,22 @@ public class TListImpl<T> implements TList<T> {
         return currentPtr.val;
     }
 
+    /**
+     * The isEmpty method checks whether the TList is null or not.
+     *
+     * @return true if is empty, false otherwise
+     */
     @Override
     public boolean isEmpty() {
         return head == null;
     }
 
     /**
-     *  remove
-     * @param index xxxxxxxxxxxx
-     * @return xxxxxxxxxxxx
+     * The remove() method takes an integer as an index and
+     * remove the node in that index from the TList.
+     *
+     * @param index in the TList
+     * @return the current Node's value in T type
      */
     @Override
     public T remove(int index) {
@@ -99,13 +110,14 @@ public class TListImpl<T> implements TList<T> {
     }
 
     /**
-     * size
-     * @return
+     * The size() method returns an integer which is the size of the TList.
+     *
+     * @return an int of the NList's size
      */
     @Override
     public int size() {
         int counter = 0;
-        TNode currentPtr = head;
+        TNode<T> currentPtr = head;
         while (currentPtr != null) {
             counter++;
             currentPtr = currentPtr.next;
@@ -114,16 +126,18 @@ public class TListImpl<T> implements TList<T> {
     }
 
     /**
-     * oddTs
-     * @return
+     * The oddTs() method returns a TList with the Node in odd index.
+     *
+     * @return TList
      */
     @Override
-    public TList oddTs() {
+    public TList<T> oddTs() {
         if(head==null){
-            throw new IllegalArgumentException("The list is empty, so there's no oddWords");
+            throw new IllegalArgumentException(
+                    "The list is empty, so there's no oddWords");
         }
         TNode<T> currentPtr = head.next;
-        TListImpl<T> oddList = new TListImpl<T>();
+        TListImpl<T> oddList = new TListImpl<>();
 
         while (currentPtr != null ) {
             oddList.add(currentPtr.val);
@@ -138,16 +152,17 @@ public class TListImpl<T> implements TList<T> {
 
 
     /**
-     * evenTs
-     * @return
+     * The evenTs method returns a TList with the Node in even index.
+     *
+     * @return Tlist
      */
     @Override
-    public TList evenTs() {
+    public TList<T> evenTs() {
         if(head==null){
             throw new IllegalArgumentException("The list is empty, so there's no evenWords");
         }
         TNode<T> currentPtr = head;
-        TListImpl<T> evenList = new TListImpl<T>();
+        TListImpl<T> evenList = new TListImpl<>();
 
         while (currentPtr != null ) {
             evenList.add(currentPtr.val);
@@ -160,7 +175,11 @@ public class TListImpl<T> implements TList<T> {
         return evenList;
     }
 
-
+    /**
+     * The toString() method returns a string of the expression of the TList.
+     *
+     * @return String the expression of the TListImpl
+     */
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
