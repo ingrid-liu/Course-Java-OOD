@@ -5,7 +5,7 @@ public class GListImpl<G> implements GList<G>{
     public GListImpl(G val) {
         this.val = val;
     }
-    // TODO 3. do I need this constructor? and an empty one?
+    
     public GListImpl(G val, GListImpl<G> innerList) {
         this.val = val;
         this.innerList = innerList;
