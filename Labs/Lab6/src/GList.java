@@ -1,4 +1,4 @@
-public abstract interface GList <G> {
+public interface GList <G> {
     GList<G> add(G val);
     int size();
     G getVal(int index) throws IllegalArgumentException;
