@@ -2,7 +2,6 @@ public class emptyGListImpl<G> implements GList<G> {
     public emptyGListImpl() {
     }
 
-    // TODO 2 ？？？
     @Override
     public GList<G> add(G val) {
         return new GListImpl<>(val);
@@ -42,8 +41,5 @@ public class emptyGListImpl<G> implements GList<G> {
     public String toString() {
         return "";
     }
-
-
-
 
 }
