@@ -73,6 +73,9 @@ public class GListImpl<G> implements GList<G>{
 
     @Override
     public GListImpl<G> remove(int index) throws IllegalArgumentException {
+        if (index < 0 || index > size() - 1) {
+            throw new IllegalArgumentException("The index is invalid");
+        }
         if (index == 0) {
             return removeHead(true); // do want to remove the head
         } else {

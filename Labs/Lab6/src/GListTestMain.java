@@ -29,8 +29,9 @@ public class GListTestMain {
         System.out.println("find(\"a\"): " + StrList.find("a"));
         System.out.println("find(\"b\"): " + StrList.find("b"));
 
-        System.out.println("remove: " + StrList.remove(1));
-
+        System.out.println("remove index 1: " + StrList.remove(1));
+        System.out.println("remove index 0: " + StrList.remove(0));
+        // System.out.println("remove index 1: " + StrList.remove(1));  // expected Exception
 
     }
 
