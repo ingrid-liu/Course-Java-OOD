@@ -5,11 +5,7 @@ public class GListImpl<G> implements GList<G>{
     public GListImpl(G val) {
         this.val = val;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 815acbf4a521a2d69448a6e416ea914539534e61
     public GListImpl(G val, GListImpl<G> innerList) {
         this.val = val;
         this.innerList = innerList;
@@ -61,18 +57,10 @@ public class GListImpl<G> implements GList<G>{
 
     @Override
     public int find(G val) {
-
-        int index = 0;
-        int size = this.size();
-        while (index < size) {
-            if (getVal(0) == val) {
-                return index;
-            } else {
-                index++;
-                innerList.find(val);
-            }
-        }
-        return -1;
+        if (val.equals(this.val)) return 0;
+        int index = innerList.find(val);
+        if (index >= 0) return index + 1;
+        else return -1;
     }
 
     public GListImpl<G> removeHead(boolean doRemove) {
@@ -101,7 +89,4 @@ public class GListImpl<G> implements GList<G>{
         String fromInnerList = innerList.toString();
         return this.val + " " + fromInnerList;
     }
-
-
-
 }
