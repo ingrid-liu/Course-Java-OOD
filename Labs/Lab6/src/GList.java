@@ -1,3 +1,4 @@
+// TODO 1 why it said that my abstract is redundant?
 
 public abstract interface GList <G> {
     GList<G> add(G val);

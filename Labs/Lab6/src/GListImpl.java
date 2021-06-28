@@ -5,12 +5,11 @@ public class GListImpl<G> implements GList<G>{
     public GListImpl(G val) {
         this.val = val;
     }
-    // TODO 3. do I need this constructor? and an empty one?
+
     public GListImpl(G val, GListImpl<G> innerList) {
         this.val = val;
         this.innerList = innerList;
     }
-
 
     @Override
     public GList<G> add(G val) {
@@ -21,7 +20,6 @@ public class GListImpl<G> implements GList<G>{
         return innerList.add(val);
     }
 
-
     @Override
     public int size() {
         if (innerList == null) {
@@ -31,16 +29,25 @@ public class GListImpl<G> implements GList<G>{
         return 1 + sizeOfInner;
     }
 
-
     @Override
     public G getVal(int index) throws IllegalArgumentException {
-        return null;
+        if (index < 0 || index > size() - 1) {
+            throw new IllegalArgumentException("The index is invalid");
+        }
+        if (index == 0) {
+            return val;
+        } else {
+            return innerList.getVal(index-1);
+        }
     }
-
 
     @Override
     public GList<G> getNext() {
-        return null;
+        if (this.size() == 1) {
+            return null;
+        } else {
+            return innerList;
+        }
     }
 
     @Override
@@ -48,10 +55,20 @@ public class GListImpl<G> implements GList<G>{
         return false;
     }
 
-
     @Override
     public int find(G val) {
-        return 0;
+
+        int index = 0;
+        int size = this.size();
+        while (index < size) {
+            if (getVal(0) == val) {
+                return index;
+            } else {
+                index++;
+                innerList.find(val);
+            }
+        }
+        return -1;
     }
 
     public GListImpl<G> removeHead(boolean doRemove) {

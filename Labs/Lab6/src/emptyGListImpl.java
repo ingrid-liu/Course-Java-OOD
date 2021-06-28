@@ -2,7 +2,7 @@ public class emptyGListImpl<G> implements GList<G> {
     public emptyGListImpl() {
     }
 
-
+    // TODO 2 ？？？
     @Override
     public GList<G> add(G val) {
         return new GListImpl<>(val);
@@ -37,6 +37,13 @@ public class emptyGListImpl<G> implements GList<G> {
     public GList<G> remove(int index) throws IllegalArgumentException {
         throw new IllegalArgumentException("Can't remove anything from an empty list");
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+
+
 
 
 }
