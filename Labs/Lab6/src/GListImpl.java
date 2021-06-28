@@ -5,11 +5,7 @@ public class GListImpl<G> implements GList<G>{
     public GListImpl(G val) {
         this.val = val;
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 815acbf4a521a2d69448a6e416ea914539534e61
     public GListImpl(G val, GListImpl<G> innerList) {
         this.val = val;
         this.innerList = innerList;
