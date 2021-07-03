@@ -11,7 +11,7 @@ public interface Polynomial {
     int getDegree();                // return degree
     int getCoefficient(int pow);        // return the coefficient for the term with that power
     double evaluate(double precision);      //double check the data type for a double-precion decimal
-    Polynomial add(PolynomialImpl another) throws IllegalArgumentException;
+    Polynomial add(Object obj) throws IllegalArgumentException;
 
 
 }

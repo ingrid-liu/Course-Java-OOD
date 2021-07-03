@@ -82,10 +82,10 @@ public class TestPolynomial {
         assertEquals("-5x^5 +5x^4 +2x^3 -2x^2", p1.add(p2).toString());
     }
 
-//    @Test (expected = Exception.class)
-//    public void testAddException() throws Exception {
-//        p1.add(termA1);
-//    }
+    @Test (expected = Exception.class)
+    public void testAddException() throws Exception {
+        p1.add(termA1);
+    }
 
     @Test
     public void testRemoveTerm () {

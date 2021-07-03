@@ -99,18 +99,30 @@ public class PolynomialImpl implements Polynomial{
 
     /**
      * This add method is taking a polynomial attribute and add two polynomials into one result.
-     * @param another a Polynomial
+     * @param obj a Polynomial
      * @return a result Polynomial
      * @throws IllegalArgumentException when the parameter passed is not a Polynomial class object.
      */
+
     @Override
-    public PolynomialImpl add(PolynomialImpl another) throws IllegalArgumentException {
+    public PolynomialImpl add(Object obj) throws IllegalArgumentException {
         PolynomialImpl result = new PolynomialImpl();
+            // add(PolynomialImpl another)
+//        result.head = this.head;
+//        TermNode currTerm = another.head;
+//
+//        if (another instanceof Polynomial){
+//            if (currTerm == null || currTerm.pow == -1) {
+//                return result;
+//            }
 
-        result.head = this.head;
-        TermNode currTerm = another.head;
+            // add(Object obj)
+        Polynomial another = new PolynomialImpl();
+        if (obj instanceof Polynomial){
+            another = (PolynomialImpl) obj;
 
-        if (another instanceof Polynomial){
+            result.head = this.head;
+            TermNode currTerm = ((PolynomialImpl) another).head;
             if (currTerm == null || currTerm.pow == -1) {
                 return result;
             }
