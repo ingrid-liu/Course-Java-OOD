@@ -55,7 +55,9 @@ public class TestPolynomial {
         // todo Question2 it won't work if I only pass x^2 or -x^2; I need to give it an 1
         Polynomial pTest4 = new PolynomialImpl("3x^5 -1x^4 +3x^3 -2x^2");
         assertEquals("3x^5 -x^4 +3x^3 -2x^2", pTest4.toString());
-    }
+
+
+   }
 
     @Test
     public void testAddTerm() {
@@ -147,16 +149,6 @@ public class TestPolynomial {
         assertEquals("5x^4 +2x^3 +3x^2", p1.toString());
         assertEquals("-5x^5 -5x^2", p2.toString());
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

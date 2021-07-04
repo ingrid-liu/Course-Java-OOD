@@ -7,8 +7,7 @@ import java.security.spec.RSAOtherPrimeInfo;
  * @since   2021-06-22
  */
 
-
-public class PolynomialImpl implements Polynomial{
+public class PolynomialImpl implements Polynomial {
     /**
      * The head is the first Term in the polynomial.
      */
@@ -27,11 +26,13 @@ public class PolynomialImpl implements Polynomial{
      */
     public PolynomialImpl(String polyStr) {
         String[] terms = polyStr.split(" ");        // "5x^2 -5x^1 +2x^0" → 5x^2, 5x^1, 2x^0
-
+        System.out.println(terms.toString());
         for (int i = 0; i < terms.length; i++) {
-            int coef = new Integer(terms[i].split("x")[0]);
+
+            int coef = new Integer(terms[i].split("x")[0]); // deal with 1 & -1
             int pow = new Integer(terms[i].split("x")[1].replace("^",""));
             this.addTerm(coef, pow);
+            // optimized solution: iterate each term and get the integer
         }
     }
 
@@ -103,39 +104,28 @@ public class PolynomialImpl implements Polynomial{
      * @return a result Polynomial
      * @throws IllegalArgumentException when the parameter passed is not a Polynomial class object.
      */
-
     @Override
-    public PolynomialImpl add(Object obj) throws IllegalArgumentException {
-        PolynomialImpl result = new PolynomialImpl();
-            // add(PolynomialImpl another)
-//        result.head = this.head;
-//        TermNode currTerm = another.head;
-//
-//        if (another instanceof Polynomial){
-//            if (currTerm == null || currTerm.pow == -1) {
-//                return result;
-//            }
+    public Polynomial add(Object obj) throws IllegalArgumentException {
+        // TODO Question1: why my this has been changed after calling the add function?
+        Polynomial result = this;
+        PolynomialImpl another = new PolynomialImpl();
+        if (!(obj instanceof PolynomialImpl)) {
+            throw new IllegalArgumentException("The added object is not a Polynomial" + another.getClass());
+        }
+        another = (PolynomialImpl) obj;
 
-            // add(Object obj)
-        Polynomial another = new PolynomialImpl();
-        if (obj instanceof Polynomial){
-            another = (PolynomialImpl) obj;
-
-            result.head = this.head;
-            TermNode currTerm = ((PolynomialImpl) another).head;
-            if (currTerm == null || currTerm.pow == -1) {
-                return result;
-            }
-
-            while (currTerm!= null) {
-                int coef = currTerm.coef;
-                int pow = currTerm.pow;
-                result.addTerm(coef, pow);
-                currTerm = currTerm.link;
-            }
+        TermNode currTerm = another.head;
+        if (currTerm == null || currTerm.pow == -1) {
             return result;
+        }
 
-        } else throw new IllegalArgumentException("The added object is not a Polynomial" + another.getClass());
+        while (currTerm != null) {
+            int coef = currTerm.coef;
+            int pow = currTerm.pow;
+            result.addTerm(coef, pow);  // TODO Q: I add term to result, why my this is changed as well?
+            currTerm = currTerm.link;
+        }
+        return result;
     }
 
     /**
@@ -165,6 +155,7 @@ public class PolynomialImpl implements Polynomial{
      */
     @Override
     public int getDegree() {
+        // TODO Q2 it works now, but I wonder is there any other smarter way?
         int size = this.size();
         int tempMaxPow = 0;
         for (int i = 0; i < size; i++) {
@@ -234,6 +225,8 @@ public class PolynomialImpl implements Polynomial{
      */
     @Override
     public String toString() {
+        // todo Question3: I still have a corner case that when I operate an existing term's coef into 0, there's a whitespace
+        // todo I think I need to deal with this in my Node class, but I already set it as "" when the coef is 0
         String expression;
         TermNode currentTerm = head;
         if (currentTerm == null || currentTerm.pow == -1) return null;
@@ -308,7 +301,7 @@ public class PolynomialImpl implements Polynomial{
         // termA3.link = termB1;
         termB1.link = termB2;
 
-        // todo Question: why I can't use Polynomial p1 = new PolynomialImpl();!!!!! so annoying!!!![○･｀Д´･ ○]
+        // todo Question4: why I can't use Polynomial p1 = new PolynomialImpl();!!!!! so annoying!!!![○･｀Д´･ ○]
         PolynomialImpl p1 = new PolynomialImpl();
         p1.head = termA1;
         System.out.println("p1 = " + p1);
