@@ -1,16 +1,22 @@
 public class TopScoreTrackerImpl implements TopScoreTracker, OrderedList<Integer> {
-  //Run record;
-
+  Run player;
+  // time is limited, my thought is to add Run (not integer score to the OrderedList
+  // and compare the Run.score later
   OrderedList<Integer> monthlyRecord;
   OrderedList<Integer> yearlyRecord;
 
   public TopScoreTrackerImpl(int monthlyTopN, int yearlyTopM) {
+    // time is limited, my thought is to add Run (not integer score to the OrderedList
       this.monthlyRecord.resize(monthlyTopN);
       this.monthlyRecord.resize(yearlyTopM);
   }
 
   @Override
   public void addRun(int m, Run r) {
+    // time is limited, my thought is to check the size of the monthlyRecord
+    // if it is less than m, then add r. score to the OrderedList monthlyRecord
+    //this.monthlyRecord.add(r.score);
+
   }
 
   @Override
