@@ -14,4 +14,8 @@ public interface OrderedList<E extends Comparable<E>> {
   // Truncate the smallest elements if length is larger than `newCapacity`.
   void resize(int newCapacity);
 
+
+
+
+
 }

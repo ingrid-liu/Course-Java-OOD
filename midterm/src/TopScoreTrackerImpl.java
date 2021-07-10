@@ -1,14 +1,15 @@
-public class TopScoreTrackerImpl implements TopScoreTracker, OrderedList<Integer> {
+public class TopScoreTrackerImpl implements TopScoreTracker {
   Run player;
-  // time is limited, my thought is to add Run (not integer score to the OrderedList
+  // time is limited, my thought is to add Run (not integer sCore to the OrderedList
   // and compare the Run.score later
-  OrderedList<Integer> monthlyRecord;
-  OrderedList<Integer> yearlyRecord;
+  OrderedList<Run> monthlyRecord;
+  OrderedList<Run> yearlyRecord;
+
 
   public TopScoreTrackerImpl(int monthlyTopN, int yearlyTopM) {
     // time is limited, my thought is to add Run (not integer score to the OrderedList
       this.monthlyRecord.resize(monthlyTopN);
-      this.monthlyRecord.resize(yearlyTopM);
+      this.yearlyRecord.resize(yearlyTopM);
   }
 
   @Override
@@ -25,42 +26,6 @@ public class TopScoreTrackerImpl implements TopScoreTracker, OrderedList<Integer
   }
 
 
-  public TopScoreTrackerImpl() {
-    super();
-  }
 
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
 
-  @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
-  }
-
-  @Override
-  protected Object clone() throws CloneNotSupportedException {
-    return super.clone();
-  }
-
-  @Override
-  public Integer getMax() {
-    return null;
-  }
-
-  @Override
-  public void add(Integer val) {
-
-  }
-
-  @Override
-  public OrderedList merge(OrderedList other) {
-    return null;
-  }
-
-  @Override
-  public void resize(int newCapacity) {
-
-  }
 }

@@ -1,4 +1,4 @@
-public class Node<E> {
+public class Node<E>{
     public E val;
     public Node<E> next;
 
@@ -18,7 +18,15 @@ public class Node<E> {
     }
 
     public String toString(){
-        return this.val + " ";
+        StringBuilder res = new StringBuilder();
+        if (this.val == null) {
+            res.append("?");
+        } else {
+           // res.append(" ");
+            res.append((String)this.val);   // todo right?
+        }
+
+        return res.toString();
     }
 
     public E getVal() {
@@ -29,4 +37,23 @@ public class Node<E> {
     public Node<E> getNext() {
         return this.next;
     }
+
+//    @Override
+//    public int compareTo(Node<E> another) {
+//        if ((Integer)this.val > (Integer)another.val) return 1;
+//        else return -1;
+//    }
+
+
+//    public int compareTo(Node<E> another){
+//        // compare Node.val
+//        if (this.val > another.val) return 1;
+//        else return -1;
+//        //obj.compareTo(otherObj) >/< 0
+//
+//    }
+
+
+
+
 }
