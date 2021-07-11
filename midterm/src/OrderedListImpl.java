@@ -35,7 +35,7 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
 
     // 2. when the list is not empty && not full: compare the val and insert a node
     if (!isFull()) {
-      if (newNode.val.compareTo(curr.val) < 0) {
+      if (newNode.val.compareTo(curr.val) <= 0) {
         pre.next = newNode;
         newNode.next = this.head;
         this.head = pre.next;
@@ -55,8 +55,14 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
       }
     }
 
-    // 3. when the list is  full: (1)cut head (2)move forward (3)call add->when it's not full
+    // 3. when the list is full:
+    // if newAdd > head: (1)cut head (2)move forward the whole list to its pre node (3)call add->when it's not full
+    // if newAdd <= head: do nothing
+    // [edge case] if newAdd > head && newAdd == any node in the list, replace pre of the existing node as newAdd
+
     else {
+      if (newNode.val.compareTo(curr.val) <= 0) return;
+
       OrderedListImpl<E> newOrderedList = new OrderedListImpl<>(this.capacity);
       newOrderedList.head = this.head.next;
       // System.out.println("new list: " + newOrderedList.toString());
@@ -66,7 +72,6 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
   }
 
   private boolean isFull() {
-
     if (this.capacity <= this.size()) {
       return true;
     } else return false;
@@ -142,32 +147,29 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
 
   @Override
   public String toString() {
-
-  StringBuilder res = new StringBuilder();
-  Node<E> currentPtr = head;
-  res.append("[");
-  int counter = 0;
-  while (currentPtr != null) {
-    res.append(currentPtr.val.toString() + " ");
-    counter++;
-    currentPtr = currentPtr.next;
-  }
-  if (counter < this.capacity) {
-    for (int i = (this.capacity - counter); i > 0; i--){
-      res.append(new Node<>().toString() + " ");
+    StringBuilder res = new StringBuilder();
+    Node<E> currentPtr = head;
+    res.append("[");
+    int counter = 0;
+    while (currentPtr != null) {
+      res.append(currentPtr.val.toString() + " ");
+      counter++;
+      currentPtr = currentPtr.next;
     }
+    if (counter < this.capacity) {
+      for (int i = (this.capacity - counter); i > 0; i--){
+        res.append(new Node<>().toString() + " ");
+      }
+    }
+    // todo Question: any smarter way to trim the tailing whitespace?
+    // res.toString().stripTrailing();
+    // res.toString().replaceAll("[ \t]+$", "");
+    StringBuilder res2 = new StringBuilder();
+    res2.append(res.toString().stripTrailing());
+
+    res2.append("]");
+    return res2.toString();
   }
-  // todo Question: smarter way to trim the tailing whitespace?
-  // res.toString().stripTrailing();
-  // res.toString().replaceAll("[ \t]+$", "");
-  StringBuilder res2 = new StringBuilder();
-  res2.append(res.toString().stripTrailing());
-
-  res2.append("]");
-  return res2.toString();
-  }
-
-
 
   public Node<E> getHead() {
     return head;
@@ -192,7 +194,7 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
     test2.add(5);
     System.out.println(test2.toString());
 
-    test2.add(3);
+    test2.add(1);
     System.out.println(test2.toString());
 
     System.out.println("Now the Max is: " + test2.getMax());
@@ -234,6 +236,63 @@ public class OrderedListImpl<E extends Comparable<E>> implements OrderedList<E> 
 
     list3.resize(3);
     System.out.println(list3.toString());
+
+
+    System.out.println("\n********** add method test2 ***************");
+    OrderedList<Integer> listA = new OrderedListImpl<Integer>(2);
+    System.out.println(listA);
+    listA.add(12);
+    listA.add(13);
+    System.out.print("After add 12 & 13: ");
+    System.out.println(listA);
+    System.out.print("After add 16: ");
+    listA.add(16);
+    System.out.println(listA);
+    System.out.print("After add 10: ");
+    listA.add(10);
+    System.out.println(listA);
+
+    listA.add(16);
+    System.out.print("After add 16: ");
+    System.out.println(listA);
+
+    System.out.print("After add 11: ");
+    listA.add(11);
+    System.out.println(listA);
+
+
+    System.out.println("\n********** add method test3 ***************");
+    OrderedList<Integer> listB = new OrderedListImpl<Integer>(5);
+    System.out.println("initialized list:     " + listB);
+    listB.add(9);
+    listB.add(10);
+    listB.add(11);
+    System.out.print("After add 9, 10, 11:  ");
+    System.out.println(listB);
+    listB.add(8);
+    listB.add(13);
+    System.out.print("After add 8 & 13:     ");
+    System.out.println(listB);
+    listB.add(16);
+    System.out.print("After add 16:         ");
+    System.out.println(listB);
+    listB.add(10);
+    System.out.print("After add 10:         ");
+    System.out.println(listB);
+    listB.add(7);
+    System.out.print("After add 7:          ");
+    System.out.println(listB);
+    listB.add(7);
+    System.out.print("After add 7:          ");
+    System.out.println(listB);
+
+    listB.add(16);
+    System.out.print("After add 16:         ");
+    System.out.println(listB);
+
+    System.out.print("After add 11:         ");
+    listB.add(11);
+    System.out.println(listB);
 
   }
 
