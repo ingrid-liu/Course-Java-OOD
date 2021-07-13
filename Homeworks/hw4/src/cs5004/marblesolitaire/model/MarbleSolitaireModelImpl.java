@@ -20,7 +20,12 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
     public int armThick;
     public int sRow;
     public int sCol;
-    public Board board;
+//    public Board gameBoard;
+
+    public int size;
+    public Marbles centerCell;
+    public Marbles[][] board;
+
 
     /**
      * This 1st constructor takes no parameters, and initialize the game board with arm thickness = 3
@@ -69,13 +74,32 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         this.sRow = sRow;
         this.sCol = sCol;
 
+        this.size = (armThick * 2) + 1;
+        generateBoard(sRow, sCol);
+
         if (armThick <= 0 || armThick % 2 == 0) {
             throw new IllegalArgumentException("arm thickness is not a positive odd number:" + armThick);
         }
         if (!(this.isValid(sRow, sCol))) {
             throw new IllegalArgumentException("Invalid empty cell position (" + sRow + ", " + sCol + ")");
         }
+    }
 
+    /**
+     * Helper method I - generateBoard helps to initialize the game board as a 2D matrix with target size.
+     * @param emptyR initialized start center row number
+     * @param emptyC initialized start center column number
+     */
+    protected void generateBoard(int emptyR, int emptyC) {
+        board = new Marbles[size][size];
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                if (checkBoundariesFalse(row, col)) {
+                    board[row][col] = null;
+                } else board[row][col] = new Marbles();
+            }
+        }
+        this.board[emptyR][emptyC].gone = true;
     }
 
 
@@ -88,8 +112,30 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
      */
     @Override
     public String getGameState() {
-        this.board = new Board(this.armThick, this.sRow, this. sCol);
-        return this.board.getGameState();
+        String initial = "";
+
+        for (int row = 0; row < this.size; row++) {
+            boolean drewM = false;
+            for (int col = 0; col < this.board[row].length; col++) {
+                if (this.board[row][col] == null) {
+                    if (!drewM) {
+                        initial += "  ";
+                    }
+                } else {
+                    if (col == 0  || this.board[row][col - 1] == null) {
+                        initial += this.board[row][col].status();   // first marble on the board in each row
+                    } else {
+                        initial += " " + this.board[row][col].status();
+                    }
+                    drewM = true;
+                }
+            }
+            if ((row != this.board.length - 1)) {
+                //if ((row != this.size - 1)) {
+                initial += "\n";
+            }
+        }
+        return initial;
     }
 
     /**
@@ -114,12 +160,69 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
          * (d) the “to” and “from” positions are exactly two positions away (horizontally or vertically)
          * (e) there is a marble in the slot between the “to” and “from” positions.
          */
-
-        this.board.move(fromRow, fromCol, toRow, toCol);
+        if (validMove(fromRow, fromCol, toRow, toCol)) {
+            this.board[fromRow][fromCol].gone = true;
+            centerCell.gone = true;
+            this.board[toRow][toCol].gone = false;
+        } else {
+            throw new IllegalArgumentException("Move must be valid");
+        }
 
     }
 
 
+    /**
+     * Helper method II onBoard determines whether the given target position is a valid or not.
+     * @param row the y position of the given position.
+     * @param col the x position of the given position.
+     * @return whether or not the given posn is a valid position on the board.
+     */
+    protected boolean onBoard(int row, int col) {
+        return !(checkBoundariesFalse(row, col));
+    }
+
+    /**
+     * Helper method III validMove determines whether or not the given move action is valid.
+     * @param fromRow the row position of the marble before it is moved.
+     * @param fromCol the column position of the marble before it is moved.
+     * @param toRow the row position of the marble after it is moved.
+     * @param toCol the column position of the marble after it is moved.
+     * @return whether or not the given move action is valid.
+     */
+    protected boolean validMove(int fromRow, int fromCol, int toRow, int toCol) {
+        if (!(onBoard(fromRow, fromCol))
+                || !(onBoard(toRow, toCol))
+                || (!(!this.board[fromRow][fromCol].gone && this.board[toRow][toCol].gone))
+                || (!((Math.abs(toRow - fromRow) == 2 && fromCol == toCol)
+                || (Math.abs(toCol - fromCol) == 2 && toRow == fromRow)))) {
+            return false;
+        } else {
+            this.centerCell = this.board[fromRow + (toRow - fromRow) / 2][(fromCol + (toCol - fromCol) / 2)];
+            return !(this.centerCell.gone);
+
+        }
+    }
+
+    /**
+     * Helper method IV checkBoundariesFalse determines whether the coordinates of the marble get out of the board.
+     * @param row the row of the marble to check
+     * @param col the column of the marble to check
+     * @return true if the marble is on the board, false otherwise
+     */
+    protected boolean checkBoundariesFalse(int row, int col) {
+        return (row < ((armThick + 1)/2)  && col < (armThick + 1)/2) || // top left
+                (row < ((armThick + 1)/2)  && col >= ((3*armThick + 1)/2)) || // top right
+                (row >= ((3*armThick + 1)/2) && col < ((armThick + 1)/2)) || // bottom left
+                (row >= ((3*armThick + 1)/2) && col >= ((3*armThick + 1)/2)) || // bottom right
+                row < 0 || row > (this.size-1) || col > (this.size-1) || col < 0;
+    }
+    /**
+     * Helper method V isValid is checking if the position is valid or not.
+     * @return true if the position is not out of boundary of the board, false other wise
+     */
+    private boolean isValid(int row, int col) {
+        return !(this.checkBoundariesFalse(row, col));
+    }
 
     /**
      * Determine and return if the game is over or not, based on if there's more moves can be made.
@@ -127,8 +230,21 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
      */
     @Override
     public boolean isGameOver() {
-        // iterate each existing marble and check if it has valid move to go, if not return true
-        return false;
+        // first thought: iterate each existing marble and check if it has valid move to go, if not return true
+        for (int row = 0; row < this.board.length - 1; row++) {
+            for (int col = 0; col  < this.board[row].length - 1; col++) {
+                if (row + 2 < size && validMove(row, col, row + 2, col)) {
+                    return false;
+                } else if ( row - 2 > 0 && validMove(row, col, row - 2, col)) {
+                    return false;
+                } else if (col + 2 < size && validMove(row, col, row, col + 2)) {
+                    return false;
+                } else if (col - 2 > 0 && validMove(row, col, row, col - 2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -138,57 +254,51 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
      */
     @Override
     public int getScore() {
-        // initialization
-        int initialScore = this.armThick * this.armThick * 4 - 4;
-
-        // left marble number
-        int currScore;
-        return initialScore;
-    }
-
-    // check if empty cell position is invalid. todo: optimize here without repeating code
-    /**
-     * Helper method isValid is checking if the position is valid or not
-     * @return true if the position is valid, false other wise
-     */
-    private boolean isValid(int row, int col) {
-//        return !board.checkBoundariesFalse(sRow, sCol);
-        int size = 2 * armThick + 1;
-        if ((row < ((armThick + 1)/2)  && col < (armThick + 1)/2) || // top left
-                (row < ((armThick + 1)/2)  && col >= ((3*armThick + 1)/2)) || // top right
-                (row >= ((3*armThick + 1)/2) && col < ((armThick + 1)/2)) || // bottom left
-                (row >= ((3*armThick + 1)/2) && col >= ((3*armThick + 1)/2)) || // bottom right
-                row < 0 || row > (size-1) || col > (size-1) || col < 0) return false;
-        return true;
+        int count = 0;
+        for (int i = 0; i < this.size; i++ ) {
+            for (int k = 0; k < this.size; k++) {
+                if ((this.board[i][k] != null) && this.board[i][k].status().equals("O")) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public String toString() {
-        return ("There are " + this.getScore() + " marbles on the board.");
+//        return ("There are " + this.getScore() + " marbles on the board.\n" +
+//                "If you want to know the Game status right now, please call the getGameState method.");
+        System.out.println("\nGame State: \n" + this.getGameState());
+        System.out.println("Game Score >>> " + this.getScore() + " marbles on the board.");
+        System.out.print("Game over? >>> ");
+        if (this.isGameOver()) System.out.print("Yes :( GAME OVER!!! Try again!");
+        else System.out.print("No ^^ Keep going!");
+        return "";
     }
 
-    public int getArmThick() {
-        return armThick;
-    }
-
-    public void setArmThick(int armThick) {
-        this.armThick = armThick;
-    }
-
-    public int getsRow() {
-        return sRow;
-    }
-
-    public void setsRow(int sRow) {
-        this.sRow = sRow;
-    }
-
-    public int getsCol() {
-        return sCol;
-    }
-
-    public void setsCol(int sCol) {
-        this.sCol = sCol;
-    }
+//    public int getArmThick() {
+//        return armThick;
+//    }
+//
+//    public void setArmThick(int armThick) {
+//        this.armThick = armThick;
+//    }
+//
+//    public int getsRow() {
+//        return sRow;
+//    }
+//
+//    public void setsRow(int sRow) {
+//        this.sRow = sRow;
+//    }
+//
+//    public int getsCol() {
+//        return sCol;
+//    }
+//
+//    public void setsCol(int sCol) {
+//        this.sCol = sCol;
+//    }
 
 
 
@@ -200,22 +310,47 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         System.out.println("When arm thick is default: ");
         System.out.println(modelTest1.getGameState());
 
-//        MarbleSolitaireModelImpl modelTest2 = new MarbleSolitaireModelImpl(5);
-//        System.out.println("\nWhen arm thick is 5: ");
-//        System.out.println(modelTest2.getGameState());
-//
-//        MarbleSolitaireModelImpl modelTest3 = new MarbleSolitaireModelImpl(7);
-//        System.out.println("\nWhen arm thick is 7: ");
-//        System.out.println(modelTest3.getGameState());
-//
-//        MarbleSolitaireModelImpl modelTest4 = new MarbleSolitaireModelImpl(9);
-//        System.out.println("\nWhen arm thick is 9: ");
-//        System.out.println(modelTest4.getGameState());
+        MarbleSolitaireModelImpl modelTest2 = new MarbleSolitaireModelImpl(5);
+        System.out.println("\nWhen arm thick is 5: ");
+        System.out.println(modelTest2.getGameState());
+
+        MarbleSolitaireModelImpl modelTest3 = new MarbleSolitaireModelImpl(7);
+        System.out.println("\nWhen arm thick is 7: ");
+        System.out.println(modelTest3.getGameState());
+
+        MarbleSolitaireModelImpl modelTest4 = new MarbleSolitaireModelImpl(9);
+        System.out.println("\nWhen arm thick is 9: ");
+        System.out.println(modelTest4.getGameState());
+
+
+        System.out.println("\n\n********* Let's start a game! **************");
 
         modelTest1.move(5,3,3,3);
-        System.out.println("\n" + modelTest1.board.getGameState());
-
-
+        modelTest1.move(2,3,4,3);
+        modelTest1.move(3,1,3,3);
+        modelTest1.move(0,3,2,3);
+        modelTest1.move(3,3,5,3);
+        System.out.println(modelTest1);
+        modelTest1.move(6,3,4,3);
+        modelTest1.move(3,5,3,3);
+        modelTest1.move(3,3,1,3);
+        modelTest1.move(2,1,2,3);
+        modelTest1.move(2,4,2,2);
+        System.out.println(modelTest1);
+        modelTest1.move(2,6,2,4);
+        modelTest1.move(4,6,2,6);
+        modelTest1.move(4,4,4,6);
+        modelTest1.move(4,2,4,4);
+        modelTest1.move(6,2,4,2);
+        System.out.println(modelTest1);
+        modelTest1.move(5,4,3,4);
+        modelTest1.move(4,1,4,3);
+        modelTest1.move(1,2,3,2);
+        modelTest1.move(2,4,4,4);
+        modelTest1.move(4,4,4,2);
+        modelTest1.move(3,2,5,2);
+        modelTest1.move(0,4,2,4);
+        System.out.println(modelTest1);
 
 
     }

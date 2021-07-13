@@ -2,6 +2,8 @@ import cs5004.marblesolitaire.model.MarbleSolitaireModel;
 import cs5004.marblesolitaire.model.MarbleSolitaireModelImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 public class TestMarbleSolitaireModel {
     MarbleSolitaireModel modelTest = new MarbleSolitaireModelImpl();
@@ -14,13 +16,30 @@ public class TestMarbleSolitaireModel {
     @Test
     public void testConstructor1() {
         MarbleSolitaireModelImpl modelTest1 = new MarbleSolitaireModelImpl();
-        System.out.println(modelTest1.getGameState());
+
+        String expected = "    O O O\n" +
+                "    O O O\n" +
+                "O O O O O O O\n" +
+                "O O O _ O O O\n" +
+                "O O O O O O O\n" +
+                "    O O O\n" +
+                "    O O O";
+        assertEquals(expected, modelTest1.getGameState());
+
     }
 
     @Test
     public void testConstructor2() {
         MarbleSolitaireModelImpl modelTest2 = new MarbleSolitaireModelImpl(3,2);
-        System.out.println(modelTest2.getGameState());
+
+        String expected = "    O O O\n" +
+                "    O O O\n" +
+                "O O O O O O O\n" +
+                "O O _ O O O O\n" +
+                "O O O O O O O\n" +
+                "    O O O\n" +
+                "    O O O";
+        assertEquals(expected, modelTest2.getGameState());
     }
 
     // Test on passing an invalid centerCell position
@@ -32,7 +51,23 @@ public class TestMarbleSolitaireModel {
     @Test
     public void testConstructor3() {
         MarbleSolitaireModelImpl modelTest3 = new MarbleSolitaireModelImpl(7);
-        System.out.println(modelTest3.getGameState());
+
+        String expected = "        O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "O O O O O O O _ O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "        O O O O O O O\n" +
+                "        O O O O O O O";
+        assertEquals(expected, modelTest3.getGameState());
     }
 
     // Test on passing a negative thickness to the constructor
@@ -50,7 +85,20 @@ public class TestMarbleSolitaireModel {
     @Test
     public void testConstructor4() {
         MarbleSolitaireModelImpl modelTest4 = new MarbleSolitaireModelImpl(5,4,5);
-        System.out.println(modelTest4.getGameState());
+
+        String expected = "      O O O O O\n" +
+                "      O O O O O\n" +
+                "      O O O O O\n" +
+                "O O O O O O O O O O O\n" +
+                "O O O O O _ O O O O O\n" +
+                "O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O\n" +
+                "O O O O O O O O O O O\n" +
+                "      O O O O O\n" +
+                "      O O O O O\n" +
+                "      O O O O O";
+        assertEquals(expected, modelTest4.getGameState());
+
     }
 
     @Test (expected = Exception.class)
@@ -70,19 +118,106 @@ public class TestMarbleSolitaireModel {
 
     @Test
     public void testMove() {
-        System.out.println(modelTest.getGameState());
-//        modelTest.move(5,3, 3, 3);
-//        System.out.println(modelTest.getGameState());
+        modelTest.move(5,3,3,3);
+        modelTest.move(2,3,4,3);
+        modelTest.move(3,1,3,3);
+        modelTest.move(0,3,2,3);
+        modelTest.move(3,3,5,3);
+        modelTest.move(6,3,4,3);
+        modelTest.move(3,5,3,3);
+        modelTest.move(3,3,1,3);
+        modelTest.move(2,1,2,3);
+        modelTest.move(2,4,2,2);
+        modelTest.move(2,6,2,4);
+        modelTest.move(4,6,2,6);
+        String expected = "    O _ O\n" +
+                "    O O O\n" +
+                "O _ O _ O _ O\n" +
+                "O _ _ _ _ _ _\n" +
+                "O O O O O O _\n" +
+                "    O _ O\n" +
+                "    O _ O";
+        assertEquals(expected, modelTest.getGameState());
 
-        MarbleSolitaireModelImpl modelTest2 = new MarbleSolitaireModelImpl(5);
-        System.out.println(modelTest2.getGameState());
 
-        MarbleSolitaireModelImpl modelTest3 = new MarbleSolitaireModelImpl(7);
-        System.out.println(modelTest3.getGameState());
+        modelTest.move(4,4,4,6);
+        modelTest.move(4,2,4,4);
+        modelTest.move(6,2,4,2);
+        modelTest.move(5,4,3,4);
+        modelTest.move(4,1,4,3);
+        modelTest.move(1,2,3,2);
+        modelTest.move(2,4,4,4);
+        modelTest.move(4,4,4,2);
+        modelTest.move(3,2,5,2);
+        modelTest.move(0,4,2,4);
 
-        MarbleSolitaireModelImpl modelTest4 = new MarbleSolitaireModelImpl(9);
-        System.out.println(modelTest4.getGameState());
+        String expected2 = "    O _ _\n" +
+                "    _ O _\n" +
+                "O _ _ _ O _ O\n" +
+                "O _ _ _ _ _ _\n" +
+                "O _ _ _ _ _ O\n" +
+                "    O _ _\n" +
+                "    _ _ O";
+        assertEquals(expected2, modelTest.getGameState());
+
     }
 
+    @Test
+    public void testIsGameOver() {
+        modelTest.move(5,3,3,3);
+        modelTest.move(2,3,4,3);
+        modelTest.move(3,1,3,3);
+        modelTest.move(0,3,2,3);
+        modelTest.move(3,3,5,3);
+        modelTest.move(6,3,4,3);
+        modelTest.move(3,5,3,3);
+        modelTest.move(3,3,1,3);
+        modelTest.move(2,1,2,3);
+        modelTest.move(2,4,2,2);
+        modelTest.move(2,6,2,4);
+        modelTest.move(4,6,2,6);
+        assertFalse(modelTest.isGameOver());
+
+        modelTest.move(4,4,4,6);
+        modelTest.move(4,2,4,4);
+        modelTest.move(6,2,4,2);
+        modelTest.move(5,4,3,4);
+        modelTest.move(4,1,4,3);
+        modelTest.move(1,2,3,2);
+        modelTest.move(2,4,4,4);
+        modelTest.move(4,4,4,2);
+        modelTest.move(3,2,5,2);
+        modelTest.move(0,4,2,4);
+        assertTrue(modelTest.isGameOver());
+    }
+
+    @Test
+    public void testGetScore() {
+        modelTest.move(5,3,3,3);
+        modelTest.move(2,3,4,3);
+        modelTest.move(3,1,3,3);
+        modelTest.move(0,3,2,3);
+        modelTest.move(3,3,5,3);
+        modelTest.move(6,3,4,3);
+        modelTest.move(3,5,3,3);
+        modelTest.move(3,3,1,3);
+        modelTest.move(2,1,2,3);
+        modelTest.move(2,4,2,2);
+        modelTest.move(2,6,2,4);
+        modelTest.move(4,6,2,6);
+        assertEquals(20, modelTest.getScore());
+
+        modelTest.move(4,4,4,6);
+        modelTest.move(4,2,4,4);
+        modelTest.move(6,2,4,2);
+        modelTest.move(5,4,3,4);
+        modelTest.move(4,1,4,3);
+        modelTest.move(1,2,3,2);
+        modelTest.move(2,4,4,4);
+        modelTest.move(4,4,4,2);
+        modelTest.move(3,2,5,2);
+        modelTest.move(0,4,2,4);
+        assertEquals(10, modelTest.getScore());
+    }
 
 }
