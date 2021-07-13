@@ -20,12 +20,9 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
     public int armThick;
     public int sRow;
     public int sCol;
-//    public Board gameBoard;
-
     public int size;
     public Marbles centerCell;
     public Marbles[][] board;
-
 
     /**
      * This 1st constructor takes no parameters, and initialize the game board with arm thickness = 3
@@ -94,14 +91,13 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         board = new Marbles[size][size];
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if (checkBoundariesFalse(row, col)) {
+                if (!isValid(row, col)) {
                     board[row][col] = null;
                 } else board[row][col] = new Marbles();
             }
         }
         this.board[emptyR][emptyC].gone = true;
     }
-
 
     /**
      * The getGameState method is used to print the game state in the format of characters(' ', 'O' or '_').
@@ -115,10 +111,10 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         String initial = "";
 
         for (int row = 0; row < this.size; row++) {
-            boolean drewM = false;
+            boolean cutPlaceHolder = false;
             for (int col = 0; col < this.board[row].length; col++) {
                 if (this.board[row][col] == null) {
-                    if (!drewM) {
+                    if (!cutPlaceHolder) {
                         initial += "  ";
                     }
                 } else {
@@ -127,7 +123,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
                     } else {
                         initial += " " + this.board[row][col].status();
                     }
-                    drewM = true;
+                    cutPlaceHolder = true;
                 }
             }
             if ((row != this.board.length - 1)) {
@@ -167,9 +163,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         } else {
             throw new IllegalArgumentException("Move must be valid");
         }
-
     }
-
 
     /**
      * Helper method II onBoard determines whether the given target position is a valid or not.
@@ -178,7 +172,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
      * @return whether or not the given posn is a valid position on the board.
      */
     protected boolean onBoard(int row, int col) {
-        return !(checkBoundariesFalse(row, col));
+        return isValid(row, col);
     }
 
     /**
@@ -199,29 +193,20 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         } else {
             this.centerCell = this.board[fromRow + (toRow - fromRow) / 2][(fromCol + (toCol - fromCol) / 2)];
             return !(this.centerCell.gone);
-
         }
     }
 
     /**
-     * Helper method IV checkBoundariesFalse determines whether the coordinates of the marble get out of the board.
-     * @param row the row of the marble to check
-     * @param col the column of the marble to check
-     * @return true if the marble is on the board, false otherwise
-     */
-    protected boolean checkBoundariesFalse(int row, int col) {
-        return (row < ((armThick + 1)/2)  && col < (armThick + 1)/2) || // top left
-                (row < ((armThick + 1)/2)  && col >= ((3*armThick + 1)/2)) || // top right
-                (row >= ((3*armThick + 1)/2) && col < ((armThick + 1)/2)) || // bottom left
-                (row >= ((3*armThick + 1)/2) && col >= ((3*armThick + 1)/2)) || // bottom right
-                row < 0 || row > (this.size-1) || col > (this.size-1) || col < 0;
-    }
-    /**
-     * Helper method V isValid is checking if the position is valid or not.
+     * Helper method IV isValid is checking if the position is valid or not.
      * @return true if the position is not out of boundary of the board, false other wise
      */
     private boolean isValid(int row, int col) {
-        return !(this.checkBoundariesFalse(row, col));
+        if (!((row < ((armThick + 1)/2)  && col < (armThick + 1)/2) || // top left
+                (row < ((armThick + 1)/2)  && col >= ((3*armThick + 1)/2)) || // top right
+                (row >= ((3*armThick + 1)/2) && col < ((armThick + 1)/2)) || // bottom left
+                (row >= ((3*armThick + 1)/2) && col >= ((3*armThick + 1)/2)) || // bottom right
+                row < 0 || row > (this.size-1) || col > (this.size-1) || col < 0)) return true;
+        else return false;
     }
 
     /**
@@ -230,7 +215,6 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
      */
     @Override
     public boolean isGameOver() {
-        // first thought: iterate each existing marble and check if it has valid move to go, if not return true
         for (int row = 0; row < this.board.length - 1; row++) {
             for (int col = 0; col  < this.board[row].length - 1; col++) {
                 if (row + 2 < size && validMove(row, col, row + 2, col)) {
@@ -246,7 +230,6 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         }
         return true;
     }
-
 
     /**
      * The getScore method returns the number of marbles currently on the board.
@@ -266,8 +249,6 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
     }
 
     public String toString() {
-//        return ("There are " + this.getScore() + " marbles on the board.\n" +
-//                "If you want to know the Game status right now, please call the getGameState method.");
         System.out.println("\nGame State: \n" + this.getGameState());
         System.out.println("Game Score >>> " + this.getScore() + " marbles on the board.");
         System.out.print("Game over? >>> ");
@@ -276,29 +257,29 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         return "";
     }
 
-//    public int getArmThick() {
-//        return armThick;
-//    }
-//
-//    public void setArmThick(int armThick) {
-//        this.armThick = armThick;
-//    }
-//
-//    public int getsRow() {
-//        return sRow;
-//    }
-//
-//    public void setsRow(int sRow) {
-//        this.sRow = sRow;
-//    }
-//
-//    public int getsCol() {
-//        return sCol;
-//    }
-//
-//    public void setsCol(int sCol) {
-//        this.sCol = sCol;
-//    }
+    public int getArmThick() {
+        return armThick;
+    }
+
+    public void setArmThick(int armThick) {
+        this.armThick = armThick;
+    }
+
+    public int getsRow() {
+        return sRow;
+    }
+
+    public void setsRow(int sRow) {
+        this.sRow = sRow;
+    }
+
+    public int getsCol() {
+        return sCol;
+    }
+
+    public void setsCol(int sCol) {
+        this.sCol = sCol;
+    }
 
 
 
