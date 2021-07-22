@@ -1,0 +1,38 @@
+0. initial outline of the final project idea
+I and my partner want to create a Payroll System with the Java knowledge we learned from 5004.
+
+
+1. The overall topic of the project (a game, an inventory database, a music
+classifier, a tool to defeat "captcha"s involving stop lights, whatever), a
+clever algorithm to traverse a certain type of tree -- whatever!). Try to
+choose something that is authentically interesting to YOU.
+
+A Payroll system.
+It is a simple application using graphical components in the Swing toolkit in Java.
+The feature of this simple application includes calculating total salary an employee.
+In order to add a record, the user has to provide id, name, department, position, etc.
+
+Ideally, we will try to make it switch to the employer mode and have more access to manage
+the employee's payroll information.
+
+2. Your likely partner(s), if any. Name(s) if known, ideal number if not.
+My partner is Ryan Mah. We are a 2 person team.
+
+3. Format (e.g., a desktop app, an Android app, a web site with an embedded
+Java app? something else?).
+Up to now we want the Payroll System to be pop out window of a Java app.(sorry, I'm not quite sure about this part now)
+
+4. Your current best estimate of how many person-hours will be required to
+complete your project, broken down as follows:
+- defining: 6-8 hours
+- designing: 10-12 hours;
+- researching: 8-10 hours;
+- implementing: 15-20 hours;
+- testing: 15-20 hours;
+- debugging: 20 hours;
+- updating: 20+ hours;
+and a GRAND TOTAL: 110+ hours in total
+
+5. One thing you think you may need to learn in order to complete the project.
+I hope I can use a database to implement the data my system restore, so if time allowed, I hope to
+learn some knowledge on database!
