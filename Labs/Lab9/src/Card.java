@@ -56,11 +56,6 @@ public class Card {
     public int makeBet() {
         int bitcoins;
         switch(getSuit()){
-//            case CLUBS -> bitcoins = 100;
-//            case HEARTS -> bitcoins = 200;
-//            case SPADES -> bitcoins = 300;
-//            case DIAMONDS -> System.out.println("If I met Diamonds, I give up betting");
-//            default -> bitcoins = 0;
             case CLUBS:
                 bitcoins = 100;
                 break;

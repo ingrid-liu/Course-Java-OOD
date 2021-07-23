@@ -4,20 +4,8 @@
  * an ordinary playing card.
  */
 public enum Value {
-    ACE,
-    TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
+    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
     JACK, QUEEN, KING;
-
-    /**
-     * Return the value of this CardValue in the game of Blackjack.
-     * Note that the value returned for an ace is 1.
-     */
-    public int blackJackValue() {
-        if (this == JACK || this == QUEEN || this == KING)
-            return 10;
-        else
-            return 1 + ordinal();
-    }
 
     /**
      * Return a String representation of this CardValue, using numbers
