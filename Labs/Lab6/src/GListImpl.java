@@ -13,6 +13,10 @@ public class GListImpl<G> implements GList<G>{
 
     @Override
     public GList<G> add(G val) {
+        //better solution:      // todo how to achive this in such a neat way?
+//        this.next = next.add(val);
+//        return this;
+
         if (innerList == null) {
             innerList = new GListImpl<>(val);
             return innerList;

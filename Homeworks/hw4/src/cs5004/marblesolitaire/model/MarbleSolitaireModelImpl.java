@@ -8,6 +8,9 @@ package cs5004.marblesolitaire.model;
  * @version 1.0
  * @since 7-4-2021
  *
+ * TODO Readable acandable
+ * TODO Test
+ *
  * Requirement: Think carefully about what fields and types you will need
  * and how possible values of the fields correspond to game states.
  *
@@ -158,7 +161,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
          */
         if (validMove(fromRow, fromCol, toRow, toCol)) {
             this.board[fromRow][fromCol].gone = true;
-            centerCell.gone = true;
+            centerrCell.gone = true;
             this.board[toRow][toCol].gone = false;
         } else {
             throw new IllegalArgumentException("Move must be valid");
@@ -287,8 +290,12 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel{
         System.out.println("The main function in MarbleSolitaireModelImpl runs...");
 
         System.out.println("\n******** Test on the board initialization ********");
+        MarbleSolitaireModelImpl modelTest0 = new MarbleSolitaireModelImpl(1);
+        System.out.println("When arm thick = 1: ");
+        System.out.println(modelTest0.getGameState());
+
         MarbleSolitaireModelImpl modelTest1 = new MarbleSolitaireModelImpl();
-        System.out.println("When arm thick is default: ");
+        System.out.println("\nWhen arm thick is default: ");
         System.out.println(modelTest1.getGameState());
 
         MarbleSolitaireModelImpl modelTest2 = new MarbleSolitaireModelImpl(5);

@@ -1,3 +1,5 @@
+import java.util.function.Predicate;
+
 public class emptyGListImpl<G> implements GList<G> {
     public emptyGListImpl() {
     }

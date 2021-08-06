@@ -1,3 +1,5 @@
+import java.util.function.Predicate;
+
 public interface GList <G> {
     GList<G> add(G val);
     int size();
