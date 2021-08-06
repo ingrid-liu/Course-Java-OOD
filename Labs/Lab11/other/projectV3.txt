@@ -1,0 +1,17 @@
+
+Status on the projects:
+- defining: 6-8 hours   (Finished)
+- designing: 10-12 hours; (Finished)
+- researching: 8-10 hours; (Finished)
+- implementing: 15-20 hours; (Working on...)
+- testing: 15-20 hours;(Working on...)
+- debugging: 20 hours;
+- updating: 20+ hours;
+(a GRAND TOTAL: 110+ hours in total)
+
+
+New updated:
+We are working on figuring out the Swing package, seeing what we could do with it, and trying to come up with
+ideas on how to continue. In addition, the module video we were supposed to watch for the lab
+gave me great ideas on how to implement a Strategy Design Pattern into the back end code. This
+will come in handy because we are designing a payroll program:)

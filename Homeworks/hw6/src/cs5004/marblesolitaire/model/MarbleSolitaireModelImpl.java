@@ -270,6 +270,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
                 hasValidTo(fromRow, fromCol));
     }
 
+
     /**
      * Helper function to see if the from position has a valid to position to go.
      * @param fromRow from position's row
@@ -282,21 +283,6 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
                 (!this.board[fromRow][fromCol - 1].gone) && (this.board[fromRow][fromCol - 2].gone) ||    //left
                 (!this.board[fromRow + 1][fromCol].gone) && (this.board[fromRow + 2][fromCol].gone);      //down
     }
-
-    /**
-     if (!(onBoard(fromRow, fromCol))
-     || !(onBoard(toRow, toCol))
-     || (!(!this.board[fromRow][fromCol].gone && this.board[toRow][toCol].gone))
-     || (!((Math.abs(toRow - fromRow) == 2 && fromCol == toCol)
-     || (Math.abs(toCol - fromCol) == 2 && toRow == fromRow)))) {
-     return false;
-     } else {
-     this.centerCell = this.board[fromRow + (toRow - fromRow) / 2][(fromCol + (toCol - fromCol) / 2)];
-     return !(this.centerCell.gone);
-     }
-     */
-
-
 
 
     //++++++++++++++++++++++++++++++++++++++++++//
